@@ -1,0 +1,54 @@
+---
+title: "Reproducibility with {gtsummary}"
+date: "August 28, 2020"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+set.seed(78987)
+library(xaringanthemer)
+library(tidyverse)
+library(gtsummary)
+
+style_duo_accent(
+  primary_color = mskRvis::msk_palettes$contrast[1], 
+  secondary_color = mskRvis::msk_palettes$contrast[2],
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono")
+)
+```
+
+```{r setup, include=FALSE}
+# xaringan::inf_mr()
+options(htmltools.dir.version = FALSE)
+# knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+# library(rlang)
+# library(knitr)
+# library(gt)
+```
+
+```{r child='01-background.Rmd'}
+```
+
+---
+```{r child='02-tbl_summary.Rmd'}
+```
+
+---
+```{r child='03-tbl_regression.Rmd'}
+```
+
+---
+```{r child='04-themes.Rmd'}
+```
+
+---
+```{r child='05-print_engines.Rmd'}
+```
+
+---
+```{r child='06-thank_you.Rmd'}
+```

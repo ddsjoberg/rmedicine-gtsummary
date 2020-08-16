@@ -1,0 +1,4 @@
+class: inverse, center, middle
+
+# tbl_summary
+
