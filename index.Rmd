@@ -4,6 +4,8 @@ date: "August 28, 2020"
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css
+    nature:
+      ratio: 16:9
 ---
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
