@@ -1,6 +1,1 @@
-class: inverse, center, middle
-
-# Background
-
----
 # Scandel of poor quality code 

@@ -3,7 +3,7 @@ title: "Reproducibility with {gtsummary}"
 date: "August 28, 2020"
 output:
   xaringan::moon_reader:
-    css: xaringan-themer.css
+    css: [xaringan-themer.css, my-theme.css]
     nature:
       ratio: 16:9
 ---
@@ -21,15 +21,32 @@ style_duo_accent(
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Fira Mono")
 )
+xaringanExtra::use_webcam()
+```
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  "figures/msk-black-logo.png",
+  width = "300px",
+  exclude_class = c("inverse", "hide_logo")
+)
 ```
 
 ```{r setup, include=FALSE}
 # xaringan::inf_mr()
 options(htmltools.dir.version = FALSE)
-# knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
-# library(rlang)
-# library(knitr)
-# library(gt)
+
+# helper function to save gtsummary objects
+my_gtsave <- function(x) {
+  # if being knitted, then skip (save your objects before you knit)
+  if (isTRUE(getOption('knitr.in.progress'))) return(invisible(NULL))
+  
+  path <- file.path("images", paste0(x, ".png"))
+  x <- eval(parse(text=x))
+  if (inherits(x, "gtsummary")) x <- as_gt(x)
+  gt::gtsave(x, path)
+}
+my_gtsave("tbl_summary_1")
 ```
 
 ```{r child='01-background.Rmd'}
