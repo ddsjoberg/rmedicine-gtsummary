@@ -1,5 +1,6 @@
 ---
 title: "Reproducibility with {gtsummary}"
+author: "Daniel D. Sjoberg, Karissa Whiting"
 date: "August 28, 2020"
 output:
   xaringan::moon_reader:
@@ -21,15 +22,17 @@ style_duo_accent(
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Fira Mono")
 )
-xaringanExtra::use_webcam()
+# xaringanExtra::use_webcam()
 ```
 
+
 ```{r xaringan-logo, echo=FALSE}
-xaringanExtra::use_logo(
-  "figures/msk-black-logo.png",
-  width = "300px",
-  exclude_class = c("inverse", "hide_logo")
-)
+# xaringanExtra::use_logo(
+#   "figures/msk-black-logo.png",
+#   width = "270px",
+#   position = xaringanExtra::css_position(top = 0, right = 0),
+#   exclude_class = c("inverse", "hide_logo")
+# )
 ```
 
 ```{r setup, include=FALSE}

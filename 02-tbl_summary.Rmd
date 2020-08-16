@@ -3,7 +3,7 @@ class: inverse, center, middle
 # Summarizing Data Set with tbl_summary()
 
 ---
-# {gtsummary} summarize data with tbl_summary()
+# Summarize data with tbl_summary()
 
 .large[**Example: Summarizing clinical study data**]
 
@@ -34,8 +34,6 @@ my_gtsave("gt_trial_info")
 ]
 .pull-right[
 <p align="center"><img src="images/gt_trial_info.png" width=90%></p>
-]
-
 ]
 
 ???
