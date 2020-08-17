@@ -1,25 +1,27 @@
 class: inverse, center, middle
 
-# Summarizing Data Set with tbl_summary()
+# Summarizing Data Frames with tbl_summary()
 
 ---
-# Summarize data with tbl_summary()
+# summarize data with tbl_summary()
 
 .large[**Example: Summarizing clinical study data**]
 
 .pull-left[
 .large[
 
-**Goal**: Compare select variables between treatment and control groups:
+**Goal**: Summarize data by treatment groups:
 - Age
 - Tumor Response
 - Tumor Grade
-
 ]
 ```{r, results = FALSE}
+library(gtsummary)
+library(tidyverse)
+
 sm_trial <-
   trial %>%
-  select(trt, age, response, grade)
+  select(trt, age, grade, response)
 ```
 
 ```{r, include = FALSE}
@@ -39,18 +41,19 @@ my_gtsave("gt_trial_info")
 ???
 - This is an abbreviated version of the example data used in the package help files/documentation. 
 
+- note that the column have been labeled using the {labelled} package, and those are used throughout the package
+
 ---
-# {gtsummary} summarize data with tbl_summary()
+# summarize data with tbl_summary()
 .pull-left[
 .large[
-**The Basic tbl_summary() Code**
+**Basic tbl_summary() code**
 ]
 
 ```{r, results = FALSE}
 tbl_summary_1 <- 
   sm_trial %>%
-  tbl_summary(by = trt) %>%
-  add_p()
+  tbl_summary(by = trt)
 ```
 ```{r, include=FALSE}
 my_gtsave("tbl_summary_1")
@@ -66,7 +69,7 @@ my_gtsave("tbl_summary_1")
 .pull-right[
 <br>
 <br>
-<p align="center"><img src="images/tbl_summary_1.png" width=100%></p>
+<p align="center"><img src="images/tbl_summary_1.png" width=85%></p>
 ]
 
 ???
