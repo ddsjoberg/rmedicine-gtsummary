@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Daniel D. Sjoberg, Karissa Whiting" />
     <meta name="date" content="2020-08-28" />
+    <script src="index_files/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
@@ -27,7 +28,61 @@ class: center, middle, inverse, title-slide
 
 
 
-# Scandel of poor quality code 
+# the problem
+
+.pull-left[.large[
+- Quality of medical research is often low
+
+- Quality of code for medical research is low/non-existent
+
+- Low quality code is more likely to contain errors
+
+- Reproducibility is often difficult and time-consuming
+]]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/reproducibility-graphic-online1.jpeg" width=90%&gt;&lt;/p&gt;
+]
+
+
+???
+
+- reproducibility in medical research is a long-reported problem, and the code is an important part of this
+
+- Doug Altman noted the quality of medical research in 1994 and called in a scandal
+
+- I don't need to explain this to the people here though! One of the big themes of this year's conference is reproducibility
+
+- Nature also reported the the reproducibility crisis in 2016
+
+- At European Urology we asked authors to submit their code.
+    - one-third of papers with nontrivial statistics indicated they did not use code
+    - no submitted code satisfied the three basic principles of good software
+    
+- Nice output is HARD, and often takes a lot of custom coding and time. In a pinch, it's easier to not follow best practices.
+
+
+---
+# gtsummary: (a part of) the solution
+
+.pull-left[.large[
+- There are many tools available to increase reproducibility
+
+- The gtsummary package makes it _incredibly_ easy to create the most common tables reported in the medical literature
+
+]]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/logo.png" width=90%&gt;&lt;/p&gt;
+]
+
+
+
+???
+- Wanted to create package geared towards medical research that made creating the most common tables as simple as possible
+    - But also very flexible
+    - Most packages for R use APA formatting...not helpful for medical journals (also, life, but that is just my opinion!)
+
 
 ---
 

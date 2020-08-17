@@ -42,23 +42,22 @@
   --header-h3-font-size: 1.75rem;
 
   /* Colors */
-  --text-color: #000000;
+  --text-color: #272822;
   --header-color: #007CBA;
   --background-color: #FFFFFF;
   --link-color: #007CBA;
   --text-bold-color: #007CBA;
   --code-highlight-color: rgba(255,255,0,0.5);
-  --inverse-text-color: #000000;
-  --inverse-background-color: #DF4602;
-  --inverse-header-color: #000000;
+  --inverse-text-color: #FFFFFF;
+  --inverse-background-color: #007CBA;
+  --inverse-header-color: #FFFFFF;
   --title-slide-background-color: #007CBA;
-  --title-slide-text-color: #000000;
+  --title-slide-text-color: #FFFFFF;
   --header-background-color: #007CBA;
   --header-background-text-color: #FFFFFF;
-  --primary: #007CBA;
-  --secondary: #DF4602;
+  --base: #007CBA;
   --white: #FFFFFF;
-  --black: #000000;
+  --black: #272822;
 }
 
 html {
@@ -169,7 +168,7 @@ img, video, iframe {
   max-width: 100%;
 }
 blockquote {
-  border-left: solid 5px #DF460280;
+  border-left: solid 5px #007CBA80;
   padding-left: 1em;
 }
 .remark-slide table {
@@ -184,7 +183,7 @@ th, td {
   padding: 5px;
 }
 .remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) {
-  background: #F8DACC;
+  background: #CCE4F1;
 }
 table.dataTable tbody {
   background-color: var(--background-color);
@@ -194,7 +193,7 @@ table.dataTable.display tbody tr.odd {
   background-color: var(--background-color);
 }
 table.dataTable.display tbody tr.even {
-  background-color: #F8DACC;
+  background-color: #CCE4F1;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.5);
@@ -234,17 +233,11 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   }
 }
 
-.primary {
-  color: var(--primary);
+.base {
+  color: var(--base);
 }
-.bg-primary {
-  background-color: var(--primary);
-}
-.secondary {
-  color: var(--secondary);
-}
-.bg-secondary {
-  background-color: var(--secondary);
+.bg-base {
+  background-color: var(--base);
 }
 .white {
   color: var(--white);
