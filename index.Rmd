@@ -7,6 +7,7 @@ output:
     css: [xaringan-themer.css, my-theme.css]
     nature:
       ratio: 16:9
+    seal: false
 ---
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -24,19 +25,7 @@ style_mono_accent(
   code_font_google   = google_font("Fira Mono")
 ) 
 # xaringanExtra::use_webcam()
-```
 
-
-```{r xaringan-logo, echo=FALSE}
-# xaringanExtra::use_logo(
-#   "figures/msk-black-logo.png", 
-#   width = "270px",  
-#   position = xaringanExtra::css_position(top = 0, right = 0),
-#   exclude_class = c("inverse", "hide_logo")
-# ) 
-```
-
-```{r setup, include=FALSE}
 # xaringan::inf_mr()
 options(htmltools.dir.version = FALSE)
 
@@ -48,10 +37,22 @@ my_gtsave <- function(x) {
   path <- file.path("images", paste0(x, ".png"))
   x <- eval(parse(text=x)) 
   if (inherits(x, "gtsummary")) x <- as_gt(x)
-  gt::gtsave(x, path) 
+  gt::gtsave(x, path)  
 }
 ```
 
+class: inverse, center, title-slide, middle
+
+# Reproducibility with {gtsummary}
+
+### Daniel D. Sjoberg, Karissa Whiting
+
+### August 28, 2020
+### R/Medicine
+
+<p align="center"><img src="images/msk-white-logo.png" width=25%></p>
+
+---
 ```{r child='01-background.Rmd'}
 ```
 
@@ -74,3 +75,8 @@ my_gtsave <- function(x) {
 ---
 ```{r child='06-thank_you.Rmd'}
 ```
+
+---
+```{r child='07-addl_slides.Rmd'}
+```
+

@@ -1,0 +1,52 @@
+# code example 1
+
+```{r}
+trial %>%
+  select(age, grade, trt) %>%
+  tbl_summary(
+    # stratify table by treatment
+    by = trt,
+    # show mean and SD for age, and add denom for grade
+    statistic = list(age ~ "{mean} ({sd})",
+                     grade ~ "{n} / {N} ({p}%)"),
+    # update label for grade
+    label = grade ~ "Tumor Grade",
+    # updated text for missing values
+    missing_text = "N Unknown"
+  )
+  
+```
+
+---
+background-image: url(images/Dan-tbl_summary_small_example.png)
+background-position: center
+background-size: cover
+
+---
+# example code 2
+
+```r
+# summarize variables by treatment recieved
+trial %>%
+  select(age, grade, trt) %>%
+  tbl_summary(by = trt) %>%
+  # add a column with statistics not stratified by treatment
+  add_overall() %>%
+  # compare values across treatments
+  add_p() %>%
+  # add a column with number of non-missing observations
+  add_n() %>%
+  # bold the variable labels
+  bold_labels() %>%
+  # add a header over the treatment columns
+  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %>%
+  # update the column header
+  modify_header(label ~ "**Variable**") %>%
+  # udpate the default footnote for the statistics presented
+  modify_footnote(starts_with("stat_") ~ "Median (IQR) or Frequency (%)")
+```
+
+---
+background-image: url(images/Dan-tbl_summary_big_example.png)
+background-position: center
+background-size: cover
