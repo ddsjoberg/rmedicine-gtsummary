@@ -13,8 +13,8 @@ output:
 set.seed(78987)
 library(xaringanthemer)
 library(tidyverse)
-library(gtsummary) 
-
+library(gtsummary)
+ 
 style_mono_accent(
   base_color = mskRvis::msk_palettes$contrast[1],
   # primary_color = mskRvis::msk_palettes$contrast[1], 
@@ -22,18 +22,18 @@ style_mono_accent(
   header_font_google = google_font("Josefin Sans"),
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Fira Mono")
-)
+) 
 # xaringanExtra::use_webcam()
 ```
 
 
 ```{r xaringan-logo, echo=FALSE}
 # xaringanExtra::use_logo(
-#   "figures/msk-black-logo.png",
-#   width = "270px",
+#   "figures/msk-black-logo.png", 
+#   width = "270px",  
 #   position = xaringanExtra::css_position(top = 0, right = 0),
 #   exclude_class = c("inverse", "hide_logo")
-# )
+# ) 
 ```
 
 ```{r setup, include=FALSE}
@@ -46,11 +46,10 @@ my_gtsave <- function(x) {
   if (isTRUE(getOption('knitr.in.progress'))) return(invisible(NULL))
   
   path <- file.path("images", paste0(x, ".png"))
-  x <- eval(parse(text=x))
+  x <- eval(parse(text=x)) 
   if (inherits(x, "gtsummary")) x <- as_gt(x)
-  gt::gtsave(x, path)
+  gt::gtsave(x, path) 
 }
-my_gtsave("tbl_summary_1")
 ```
 
 ```{r child='01-background.Rmd'}
