@@ -22,10 +22,12 @@ class: inverse, center, title-slide, middle
 ### Daniel D. Sjoberg, Karissa Whiting
 
 ### August 28, 2020
-### R/Medicine
+### R/Medicine 
 
 &lt;p align="center"&gt;&lt;img src="images/msk-white-logo.png" width=25%&gt;&lt;/p&gt;
-
+   
+#### bit.ly/rmed-gtsummary
+ 
 ---
 
 # the problem
@@ -73,7 +75,7 @@ class: inverse, center, title-slide, middle
 ]]
 
 .pull-right[
-&lt;p align="center"&gt;&lt;img src="images/logo.png" width=90%&gt;&lt;/p&gt;
+&lt;p align="center"&gt;&lt;img src="images/gtsummary-HexSticker.png" width=90%&gt;&lt;/p&gt;
 ]
 
 
@@ -129,7 +131,7 @@ sm_trial &lt;-
 # summarize data with tbl_summary()
 .pull-left[
 .large[
-**Basic tbl_summary() code**
+**basic tbl_summary()**
 ]
 
 
@@ -140,11 +142,11 @@ tbl_summary_1 &lt;-
 ```
 
 .medium[
-- Default statistics are median (IQR) for continuous variables, and n (percent) for categorical data.
+- Three types of summaries: `continuous`, `categorical`, and `dichotomous`
 
-- By default, variables coded as 0/1, TRUE/FALSE, and Yes/No are presented dichotomously.
+- Default statistics are `median (IQR)` for continuous variables, and `n (%)` for categorical/dichotomous data
 
-- add_p() - default tests are the Wilcoxon rank-sum test for continuous variables, chi-square test of independence/ Fisher's exact test for categorical (Fisher's for low expected counts).
+- Variables coded as `0/1`, `TRUE/FALSE`, and `Yes/No` are presented dichotomously by default
 ]
 ]
 .pull-right[
@@ -177,7 +179,7 @@ tbl_summary_1 &lt;-
 
 .pull-left[
 .large[
-**Start Customizing Using Arguments**
+**customize with arguments**
 ]
 
 
@@ -189,15 +191,17 @@ tbl_summary_2 &lt;-
     statistic = list(
       all_continuous() ~ "{mean} ({sd})",
       all_categorical() ~ "{n} / {N} ({p}%)"), 
-    label = age ~ "Patient Age")
+    label = age ~ "Patient Age",
+    digits = age ~ 2,
+    missing_text = "N Unknown")
 ```
 
 
 .medium[
-- `statistic` - Report mean and standard deviation for continuous (default is median)
-- `label` - Specify label for age
-- `type` - Specify variable types
-- `digits` - Specify number of decimals to round to
+- `statistic` Report mean and standard deviation for continuous variables
+- `label` Specify label for age
+- `digits` Specify number of decimals to round to
+- `missing_text` Text to appear for N missing
 ]
 ]
 .pull-right[
@@ -215,6 +219,11 @@ tbl_summary_2 &lt;-
     - one formula doesn't need to be in a list, but more than one must be listed
 
 - the vignette has examples with more examples
+
+---
+background-image: url(images/Dan-tbl_summary_small_example.png)
+background-position: center
+background-size: cover
 
 ---
 # {gtsummary} and formulas
@@ -241,25 +250,18 @@ Many arguments use formula syntax (or list of formulas), and provide many  optio
 ???
 - case_when uses similar syntax 
 
----
-background-image: url(images/Dan-tbl_summary_small_example.png)
-background-position: center
-background-size: cover
 
 ---
 # tbl_summary() + helper functions
 
 .large[
-`tbl_Summary()` objects can also be updated using related functions.
+`tbl_summary()` objects can also be updated using related functions.
 
-- `add_*()` add additional column of statistics or information
-    - `add_p()`, `add_q()`, `add_overall()`, `add_n()`, `add_stat()`, `add_stat_label()`
+- `add_*()` add additional column of statistics or information, e.g. p-values, q-values, overall statistics, N obs., and more
 
 - `modify_*()` modify table headers, spanning headers, and footnotes
-    - `modify_header()`, `modify_spanning_header()`, `modify_footnote()`
-    
+
 - `bold_*()/italicize_*()` style labels, variable levels, significant p-values
-    - `bold_labels()`, `bold_levels()`, `italicize_labels()`, `italicize_levels()`
 
 ]
 
@@ -271,6 +273,8 @@ The modify functions and the bold functions work on ALLL gtsummary tables
 background-image: url(images/Dan-tbl_summary_big_example.png)
 background-position: center
 background-size: cover
+
+.footnote[code available at end of slides]
 
 ---
 
@@ -317,400 +321,6 @@ trial %&gt;%
   )
 ```
 
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#vkfjoxfxta .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#vkfjoxfxta .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#vkfjoxfxta .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#vkfjoxfxta .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#vkfjoxfxta .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#vkfjoxfxta .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#vkfjoxfxta .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#vkfjoxfxta .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#vkfjoxfxta .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#vkfjoxfxta .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#vkfjoxfxta .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#vkfjoxfxta .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#vkfjoxfxta .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#vkfjoxfxta .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#vkfjoxfxta .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#vkfjoxfxta .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#vkfjoxfxta .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#vkfjoxfxta .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#vkfjoxfxta .gt_left {
-  text-align: left;
-}
-
-#vkfjoxfxta .gt_center {
-  text-align: center;
-}
-
-#vkfjoxfxta .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#vkfjoxfxta .gt_font_normal {
-  font-weight: normal;
-}
-
-#vkfjoxfxta .gt_font_bold {
-  font-weight: bold;
-}
-
-#vkfjoxfxta .gt_font_italic {
-  font-style: italic;
-}
-
-#vkfjoxfxta .gt_super {
-  font-size: 65%;
-}
-
-#vkfjoxfxta .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
-}
-</style>
-<div id="vkfjoxfxta" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Characteristic</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Drug A</strong>, N = 98<sup class="gt_footnote_marks">1</sup></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Drug B</strong>, N = 102<sup class="gt_footnote_marks">1</sup></th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_left">Age</td>
-      <td class="gt_row gt_center">47 (15)</td>
-      <td class="gt_row gt_center">47 (14)</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">N Unknown</td>
-      <td class="gt_row gt_center">7</td>
-      <td class="gt_row gt_center">4</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left">Tumor Grade</td>
-      <td class="gt_row gt_center"></td>
-      <td class="gt_row gt_center"></td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">I</td>
-      <td class="gt_row gt_center">35 / 98 (36%)</td>
-      <td class="gt_row gt_center">33 / 102 (32%)</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">II</td>
-      <td class="gt_row gt_center">32 / 98 (33%)</td>
-      <td class="gt_row gt_center">36 / 102 (35%)</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">III</td>
-      <td class="gt_row gt_center">31 / 98 (32%)</td>
-      <td class="gt_row gt_center">33 / 102 (32%)</td>
-    </tr>
-  </tbody>
-  
-  <tfoot>
-    <tr class="gt_footnotes">
-      <td colspan="3">
-        <p class="gt_footnote">
-          <sup class="gt_footnote_marks">
-            <em>1</em>
-          </sup>
-           
-          Statistics presented: mean (SD); n / N (%)
-          <br />
-        </p>
-      </td>
-    </tr>
-  </tfoot>
-</table></div>
-
 ---
 background-image: url(images/Dan-tbl_summary_small_example.png)
 background-position: center
@@ -719,8 +329,9 @@ background-size: cover
 ---
 # example code 2
 
+
 ```r
-# summarize variables by treatment recieved
+# summarize variables by treatment received
 trial %&gt;%
   select(age, grade, trt) %&gt;%
   tbl_summary(by = trt) %&gt;%

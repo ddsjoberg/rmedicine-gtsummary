@@ -47,7 +47,7 @@ my_gtsave("gt_trial_info")
 # summarize data with tbl_summary()
 .pull-left[
 .large[
-**Basic tbl_summary() code**
+**basic tbl_summary()**
 ]
 
 ```{r, results = FALSE}
@@ -59,11 +59,11 @@ tbl_summary_1 <-
 my_gtsave("tbl_summary_1")
 ```
 .medium[
-- Default statistics are median (IQR) for continuous variables, and n (percent) for categorical data.
+- Three types of summaries: `continuous`, `categorical`, and `dichotomous`
 
-- By default, variables coded as 0/1, TRUE/FALSE, and Yes/No are presented dichotomously.
+- Default statistics are `median (IQR)` for continuous variables, and `n (%)` for categorical/dichotomous data
 
-- add_p() - default tests are the Wilcoxon rank-sum test for continuous variables, chi-square test of independence/ Fisher's exact test for categorical (Fisher's for low expected counts).
+- Variables coded as `0/1`, `TRUE/FALSE`, and `Yes/No` are presented dichotomously by default
 ]
 ]
 .pull-right[
@@ -96,7 +96,7 @@ my_gtsave("tbl_summary_1")
 
 .pull-left[
 .large[
-**Start Customizing Using Arguments**
+**customize with arguments**
 ]
 
 ```{r, results = FALSE}
@@ -107,17 +107,19 @@ tbl_summary_2 <-
     statistic = list(
       all_continuous() ~ "{mean} ({sd})",
       all_categorical() ~ "{n} / {N} ({p}%)"), 
-    label = age ~ "Patient Age")
+    label = age ~ "Patient Age",
+    digits = age ~ 2,
+    missing_text = "N Unknown")
 ```
 ```{r, include=FALSE}
 my_gtsave("tbl_summary_2")
 ```
 
 .medium[
-- `statistic` - Report mean and standard deviation for continuous (default is median)
-- `label` - Specify label for age
-- `type` - Specify variable types
-- `digits` - Specify number of decimals to round to
+- `statistic` Report mean and standard deviation for continuous variables
+- `label` Specify label for age
+- `digits` Specify number of decimals to round to
+- `missing_text` Text to appear for N missing
 ]
 ]
 .pull-right[
@@ -135,6 +137,11 @@ my_gtsave("tbl_summary_2")
     - one formula doesn't need to be in a list, but more than one must be listed
 
 - the vignette has examples with more examples
+
+---
+background-image: url(images/Dan-tbl_summary_small_example.png)
+background-position: center
+background-size: cover
 
 ---
 # {gtsummary} and formulas
@@ -161,25 +168,18 @@ Many arguments use formula syntax (or list of formulas), and provide many  optio
 ???
 - case_when uses similar syntax 
 
----
-background-image: url(images/Dan-tbl_summary_small_example.png)
-background-position: center
-background-size: cover
 
 ---
 # tbl_summary() + helper functions
 
 .large[
-`tbl_Summary()` objects can also be updated using related functions.
+`tbl_summary()` objects can also be updated using related functions.
 
-- `add_*()` add additional column of statistics or information
-    - `add_p()`, `add_q()`, `add_overall()`, `add_n()`, `add_stat()`, `add_stat_label()`
+- `add_*()` add additional column of statistics or information, e.g. p-values, q-values, overall statistics, N obs., and more
 
 - `modify_*()` modify table headers, spanning headers, and footnotes
-    - `modify_header()`, `modify_spanning_header()`, `modify_footnote()`
-    
+
 - `bold_*()/italicize_*()` style labels, variable levels, significant p-values
-    - `bold_labels()`, `bold_levels()`, `italicize_labels()`, `italicize_levels()`
 
 ]
 
@@ -191,3 +191,19 @@ The modify functions and the bold functions work on ALLL gtsummary tables
 background-image: url(images/Dan-tbl_summary_big_example.png)
 background-position: center
 background-size: cover
+
+---
+# cross table with tbl_cross()
+
+- wrapper for `tlb_summary()`
+
+```{r}
+tbl_cross_1 <-
+  sm_trial %>%
+  mutate(response = factor(response, labels = c("No", "Yes"))) %>%
+  tbl_cross(trt, response,
+            label = response ~ "**Tumor Responded to Treatment**",
+            percent = "row",
+            margin = NULL)
+tbl_cross_1
+```

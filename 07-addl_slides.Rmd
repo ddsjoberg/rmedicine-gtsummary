@@ -1,6 +1,6 @@
 # code example 1
 
-```{r}
+```{r, eval = FALSE}
 trial %>%
   select(age, grade, trt) %>%
   tbl_summary(
@@ -25,8 +25,8 @@ background-size: cover
 ---
 # example code 2
 
-```r
-# summarize variables by treatment recieved
+```{r, eval = FALSE}
+# summarize variables by treatment received
 trial %>%
   select(age, grade, trt) %>%
   tbl_summary(by = trt) %>%
