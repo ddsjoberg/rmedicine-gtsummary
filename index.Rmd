@@ -37,7 +37,7 @@ my_gtsave <- function(x) {
   path <- file.path("images", paste0(x, ".png"))
   x <- eval(parse(text=x)) 
   if (inherits(x, "gtsummary")) x <- as_gt(x)
-  gt::gtsave(x, path)      
+  gt::gtsave(x, path)            
 }     
 ```
 
