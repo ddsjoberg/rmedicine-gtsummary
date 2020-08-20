@@ -30,7 +30,7 @@ class: inverse, center, title-slide, middle
  
 ---
 
-# the problem
+# the problem: (ir)reproducibility
 
 .pull-left[.large[
 - Quality of medical research is often low
@@ -39,7 +39,7 @@ class: inverse, center, title-slide, middle
 
 - Low quality code is more likely to contain errors
 
-- Reproducibility is often difficult and time-consuming
+- Reproducibility is often **cumbersome** and **time-consuming**
 ]]
 
 .pull-right[
@@ -85,12 +85,43 @@ class: inverse, center, title-slide, middle
     - But also very flexible
     - Most packages for R use APA formatting...not helpful for medical journals (also, life, but that is just my opinion!)
 
+---
+# gtsummary: (a part of) the solution
+
+### Types of summaries:
+
+.xlarge[
+.center[
+.pull-left[
+**"Table 1"-type tables**
+
+**Cross tabulation**
+]
+
+.pull-right[
+**Regression models**
+
+**Survival data**
+]
+
+&lt;br&gt;
+_**Stack** and/or **merge** any of these tables_
+
+_Report statistics from tables **in-line**_
+
+_**Themes** to control aspects of all tables_
+]
+]
+
+???
+
+Support for the 
 
 ---
 
 class: inverse, center, middle
 
-# Summarizing Data Frames with tbl_summary()
+# summarize data with tbl_summary()
 
 ---
 # summarize data with tbl_summary()
@@ -205,7 +236,7 @@ tbl_summary_2 &lt;-
 ]
 ]
 .pull-right[
-&lt;p align="center"&gt;&lt;img src="images/tbl_summary_3.png" width=95%&gt;&lt;/p&gt;
+&lt;p align="center"&gt;&lt;img src="images/tbl_summary_2.png" width=95%&gt;&lt;/p&gt;
 ]
 
 ???
@@ -275,400 +306,37 @@ background-position: center
 background-size: cover
 
 ---
+background-image: url(images/tbl_summary_demo_fast.gif)
+background-position: center
+background-size: contain
+
+# tbl_summary() in action
+
+---
 # cross table with tbl_cross()
 
-- wrapper for `tlb_summary()`
+`tbl_cross()` is a wrapper for `tbl_summary()` for **2 x 2** tables
 
+.pull-left[
+&lt;br&gt;
 
 ```r
 tbl_cross_1 &lt;-
   sm_trial %&gt;%
-  mutate(response = factor(response, labels = c("No", "Yes"))) %&gt;%
-  tbl_cross(trt, response,
-            label = response ~ "**Tumor Responded to Treatment**",
-            percent = "row",
-            margin = NULL)
-tbl_cross_1
+  tbl_cross(
+    row = trt, 
+    col = grade,
+    percent = "row",
+    margin = "row"
+  ) %&gt;%
+  add_p(source_note = TRUE)
 ```
 
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
+]
 
-#vkfjoxfxta .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#vkfjoxfxta .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#vkfjoxfxta .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#vkfjoxfxta .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#vkfjoxfxta .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#vkfjoxfxta .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#vkfjoxfxta .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#vkfjoxfxta .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#vkfjoxfxta .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#vkfjoxfxta .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#vkfjoxfxta .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#vkfjoxfxta .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#vkfjoxfxta .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#vkfjoxfxta .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#vkfjoxfxta .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#vkfjoxfxta .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#vkfjoxfxta .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#vkfjoxfxta .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#vkfjoxfxta .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#vkfjoxfxta .gt_left {
-  text-align: left;
-}
-
-#vkfjoxfxta .gt_center {
-  text-align: center;
-}
-
-#vkfjoxfxta .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#vkfjoxfxta .gt_font_normal {
-  font-weight: normal;
-}
-
-#vkfjoxfxta .gt_font_bold {
-  font-weight: bold;
-}
-
-#vkfjoxfxta .gt_font_italic {
-  font-style: italic;
-}
-
-#vkfjoxfxta .gt_super {
-  font-size: 65%;
-}
-
-#vkfjoxfxta .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
-}
-</style>
-<div id="vkfjoxfxta" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1"><strong>Characteristic</strong></th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3">
-        <span class="gt_column_spanner"><strong><strong>Tumor Responded to Treatment</strong></strong></span>
-      </th>
-      <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1"><strong>Total</strong></th>
-    </tr>
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">No</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Yes</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Unknown</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_left" style="font-weight: bold;">Chemotherapy Treatment</td>
-      <td class="gt_row gt_center"></td>
-      <td class="gt_row gt_center"></td>
-      <td class="gt_row gt_center"></td>
-      <td class="gt_row gt_center"></td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Drug A</td>
-      <td class="gt_row gt_center">67 (68%)</td>
-      <td class="gt_row gt_center">28 (29%)</td>
-      <td class="gt_row gt_center">3 (3.1%)</td>
-      <td class="gt_row gt_center">98 (100%)</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Drug B</td>
-      <td class="gt_row gt_center">65 (64%)</td>
-      <td class="gt_row gt_center">33 (32%)</td>
-      <td class="gt_row gt_center">4 (3.9%)</td>
-      <td class="gt_row gt_center">102 (100%)</td>
-    </tr>
-  </tbody>
-  
-  
-</table></div>
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/tbl_cross_1.png" width=90%&gt;&lt;/p&gt;
+]
 
 ---
 

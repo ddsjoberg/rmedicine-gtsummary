@@ -1,4 +1,4 @@
-# the problem
+# the problem: (ir)reproducibility
 
 .pull-left[.large[
 - Quality of medical research is often low
@@ -7,7 +7,7 @@
 
 - Low quality code is more likely to contain errors
 
-- Reproducibility is often difficult and time-consuming
+- Reproducibility is often **cumbersome** and **time-consuming**
 ]]
 
 .pull-right[
@@ -53,3 +53,34 @@
     - But also very flexible
     - Most packages for R use APA formatting...not helpful for medical journals (also, life, but that is just my opinion!)
 
+---
+# gtsummary: (a part of) the solution
+
+### Types of summaries:
+
+.xlarge[
+.center[
+.pull-left[
+**"Table 1"-type tables**
+
+**Cross tabulation**
+]
+
+.pull-right[
+**Regression models**
+
+**Survival data**
+]
+
+<br>
+_**Stack** and/or **merge** any of these tables_
+
+_Report statistics from tables **in-line**_
+
+_**Themes** to control aspects of all tables_
+]
+]
+
+???
+
+Support for the 

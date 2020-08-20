@@ -1,6 +1,6 @@
 class: inverse, center, middle
 
-# Summarizing Data Frames with tbl_summary()
+# summarize data with tbl_summary()
 
 ---
 # summarize data with tbl_summary()
@@ -123,7 +123,7 @@ my_gtsave("tbl_summary_2")
 ]
 ]
 .pull-right[
-<p align="center"><img src="images/tbl_summary_3.png" width=95%></p>
+<p align="center"><img src="images/tbl_summary_2.png" width=95%></p>
 ]
 
 ???
@@ -193,17 +193,35 @@ background-position: center
 background-size: cover
 
 ---
+background-image: url(images/tbl_summary_demo_fast.gif)
+background-position: center
+background-size: contain
+
+# tbl_summary() in action
+
+---
 # cross table with tbl_cross()
 
-- wrapper for `tlb_summary()`
+`tbl_cross()` is a wrapper for `tbl_summary()` for **2 x 2** tables
 
+.pull-left[
+<br>
 ```{r}
 tbl_cross_1 <-
   sm_trial %>%
-  mutate(response = factor(response, labels = c("No", "Yes"))) %>%
-  tbl_cross(trt, response,
-            label = response ~ "**Tumor Responded to Treatment**",
-            percent = "row",
-            margin = NULL)
-tbl_cross_1
+  tbl_cross(
+    row = trt, 
+    col = grade,
+    percent = "row",
+    margin = "row"
+  ) %>%
+  add_p(source_note = TRUE)
 ```
+```{r, include=FALSE}
+my_gtsave("tbl_cross_1")
+```
+]
+
+.pull-right[
+<p align="center"><img src="images/tbl_cross_1.png" width=90%></p>
+]
