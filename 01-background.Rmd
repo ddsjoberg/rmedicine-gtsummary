@@ -1,4 +1,4 @@
-# the problem
+# the problem: (ir)reproducibility
 
 .pull-left[.large[
 - Quality of medical research is often low
@@ -7,7 +7,7 @@
 
 - Low quality code is more likely to contain errors
 
-- Reproducibility is often difficult and time-consuming
+- Reproducibility is often **cumbersome** and **time-consuming**
 ]]
 
 .pull-right[
@@ -34,18 +34,7 @@
 
 ---
 # gtsummary: (a part of) the solution
-
-.pull-left[.large[
-- There are many tools available to increase reproducibility
-
-- The gtsummary package makes it _incredibly_ easy to create the most common tables reported in the medical literature
-
-]]
-
-.pull-right[
-<p align="center"><img src="images/gtsummary-HexSticker.png" width=90%></p>
-]
-
+<p align="center"><img src="images/gtsummary-HexSticker.png" width=50%></p>
 
 
 ???
@@ -53,3 +42,37 @@
     - But also very flexible
     - Most packages for R use APA formatting...not helpful for medical journals (also, life, but that is just my opinion!)
 
+---
+# gtsummary: (a part of) the solution
+
+### Types of summaries:
+.center[
+.xlarge[
+.pull-left[
+**"Table 1"-type tables**
+
+**Cross tabulation**
+]
+
+.pull-right[
+**Regression models**
+
+**Survival data**
+]
+]
+
+<br>
+.large[
+_**Stack** and/or **merge** any of these tables_
+
+_Report statistics from tables **in-line**_
+
+_**Themes** to control aspects of all tables_
+
+_Choices on **print engine**_
+]
+]
+
+???
+
+Support for the 

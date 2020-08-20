@@ -14,9 +14,9 @@ output:
 set.seed(78987)
 library(xaringanthemer)
 library(tidyverse)
-library(gtsummary)   
+library(gtsummary)
  
-style_mono_accent(
+style_mono_accent( 
   base_color = mskRvis::msk_palettes$contrast[1],
   # primary_color = mskRvis::msk_palettes$contrast[1], 
   # secondary_color = mskRvis::msk_palettes$contrast[2],
@@ -27,7 +27,7 @@ style_mono_accent(
 # xaringanExtra::use_webcam()
 
 # xaringan::inf_mr()
-options(htmltools.dir.version = FALSE)
+options(htmltools.dir.version = FALSE)  
 
 # helper function to save gtsummary objects
 my_gtsave <- function(x) {
@@ -37,8 +37,8 @@ my_gtsave <- function(x) {
   path <- file.path("images", paste0(x, ".png"))
   x <- eval(parse(text=x)) 
   if (inherits(x, "gtsummary")) x <- as_gt(x)
-  gt::gtsave(x, path)  
-} 
+  gt::gtsave(x, path)            
+}     
 ```
 
 class: inverse, center, title-slide, middle
@@ -48,7 +48,7 @@ class: inverse, center, title-slide, middle
 ### Daniel D. Sjoberg, Karissa Whiting
 
 ### August 28, 2020
-### R/Medicine 
+### R/Medicine  
 
 <p align="center"><img src="images/msk-white-logo.png" width=25%></p>
    
