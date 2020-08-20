@@ -11,7 +11,7 @@ class: inverse, center, middle
 ]
 .pull-left[
 
-
+.small[
 ```{r, results = FALSE}
 library(gtsummary)
 library(tidyverse)
@@ -20,25 +20,27 @@ m1 = glm(response ~ age + stage,
          data = trial,
          family = binomial(link = "logit"))
 
+summary(m1)
 ```
-
+]
 .large[
-- Display Odds Ratio estimates and CI's for all covariates
-- Display p-values for covariates
-- Show reference levels for categorical variables
+- Display **odds ratio** estimates and **confidence intervals**
+
+- Display covariate **p-values**
+
+- Show **reference levels** for categorical variables
 ]
 
 ]
 
-```{r, include=FALSE}
-tbl_logreg <- 
-  tbl_regression(m1, exponentiate = TRUE)
-
-my_gtsave("tbl_logreg")
-```
 
 .pull-right[
-<p align="center"><img src="images/tbl_logreg.png" width=80%></p>
+
+.small[
+```{r, echo=FALSE}
+summary(m1)
+```
+]
 ]
 
 
@@ -46,15 +48,12 @@ my_gtsave("tbl_logreg")
 # summarize models with tbl_regression()
 
 .large[
-**Basic tbl_regression() code**
+**basic tbl_regression() code**
 ]
 
 .pull-left[
 
 ```{r, results = FALSE}
-m1 = glm(response ~ age + stage,
-         data = trial,
-         family = binomial(link = "logit"))
 tbl_logreg <- 
   tbl_regression(m1, exponentiate = TRUE)
 ```
@@ -62,12 +61,12 @@ tbl_logreg <-
 my_gtsave("tbl_logreg")
 ```
 
-.medium[
-- Variable types are automatically detected and reference rows are created for categorical variables.
+.large[
+- **Reference rows** are created for categorical variables
 
-- Variable labels are carried through into the output table (if no labels, variable names are used). 
+- **Variable labels** are displayed 
 
-- The model was recognized as logistic regression with coefficients exponentiated, so the header displayed “OR” for odds ratio.
+- Coefficients are exponentiated and **Odds Ratios** are displayed
 ]
 ]
 .pull-right[
@@ -85,7 +84,7 @@ my_gtsave("tbl_logreg")
 ---
 # summarize models with tbl_regression()
 .large[
-**Customize Regression Tables**
+**customize regression tables**
 ]
 .pull-left[
 
@@ -93,11 +92,8 @@ my_gtsave("tbl_logreg")
 tbl_logreg2 <-
   tbl_regression(m1,
     exponentiate = TRUE,
-    label = vars(age) ~ "Age, yrs",
-    pvalue_fun = function(x) {
-      style_pvalue(x, digits = 2)
-    }
-  ) %>%
+    pvalue_fun =
+      ~style_pvalue(.x, digits = 2)) %>%
   bold_labels() %>%
   italicize_levels() %>%
   add_global_p() %>%
@@ -109,7 +105,7 @@ my_gtsave("tbl_logreg2")
 
 .medium[
 - `exponentiate` - Exponentiate model coefficients to display ORs
-- `label` - Specify label for age
+- `label` - Specify label for `age`
 - `pvalue_fun` - Round and format p-values
 - `add_global_p()` - Calculate global p-values for categorical variables
 - `bold_p()` - Bold p-values under threshold of .1
@@ -133,12 +129,9 @@ background-size: contain
 
 # tbl_uvregression() Univariate Summaries
 .large[
-**Basic tbl_uvregression() code**
+**basic tbl_uvregression() code**
 ]
-
 .pull-left[
-
-
 ```{r, results = FALSE}
 tbl_uvreg <- 
   trial %>% 
@@ -154,9 +147,9 @@ my_gtsave("tbl_uvreg")
 ```
 
 .medium[
-- Specify which model method to use, any necessary method arguments, and the response variable
+- Specify  model `method`, `method.args`, and the `response` variable
 
-- Arguments and helper functions like `exponentiate`, `bold_*()`, `add_global_p()` are also available for `tbl_uvregression()`
+- Arguments and helper functions like `exponentiate`, `bold_*()`, `add_global_p()` can also be used with `tbl_uvregression()`
 
 ]
 ]
@@ -170,7 +163,22 @@ my_gtsave("tbl_uvreg")
 
 ---
 
-# inline_text()
+# inline reporting with inline_text()
 
--TBD
+<p align="center"><img src="images/tbl_logreg.png" width=30%></p>
+
+.medium[
+**In Code:** 
+The odds ratio for age is '` r inline_text(tbl_logreg2, variable = age)`'
+
+**In Report:** 
+The odds ratio for age is `r inline_text(tbl_logreg2, variable = age)`
+]
+
+
+---
+
+# tbl_merge() and tbl_stack()
+
+Possible just a figure/schematic here
 
