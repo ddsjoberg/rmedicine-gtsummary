@@ -628,7 +628,7 @@ tbl_cross_1
   
   <thead class="gt_col_headings">
     <tr>
-      <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1"><strong>変数</strong></th>
+      <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1"><strong>Characteristic</strong></th>
       <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3">
         <span class="gt_column_spanner"><strong><strong>Tumor Responded to Treatment</strong></strong></span>
       </th>
@@ -677,26 +677,28 @@ class: inverse, center, middle
 ---
 # summarize models with tbl_regression()
 
-.large[**Example: Summarizing regression models**]
-
-.pull-left[
 .large[
-
 **Goal**: Summarize a logistic regression model predicting tumor response
-  
-**Basic tbl_regression() code**
 ]
+.pull-left[
+
 
 
 ```r
 library(gtsummary)
 library(tidyverse)
 
-m1 = glm(response ~ age + stage + grade,
+m1 = glm(response ~ age + stage,
          data = trial,
          family = binomial(link = "logit"))
-tbl_logreg &lt;- tbl_regression(m1, exponentiate = TRUE)
 ```
+
+.large[
+- Display Odds Ratio estimates and CI's for all covariates
+- Display p-values for covariates
+- Show reference levels for categorical variables
+]
+
 ]
 
 
@@ -708,10 +710,12 @@ tbl_logreg &lt;- tbl_regression(m1, exponentiate = TRUE)
 
 ---
 # summarize models with tbl_regression()
-.pull-left[
+
 .large[
 **Basic tbl_regression() code**
 ]
+
+.pull-left[
 
 
 ```r
@@ -745,20 +749,21 @@ tbl_logreg &lt;-
 
 ---
 # summarize models with tbl_regression()
-.pull-left[
 .large[
 **Customize Regression Tables**
 ]
+.pull-left[
 
 
 ```r
-tbl_logreg2 &lt;- 
+tbl_logreg2 &lt;-
   tbl_regression(m1,
-                 exponentiate = TRUE, 
-                 label = vars(age) ~ "Age, yrs", 
-                 pvalue_fun = function(x) {
-                   style_pvalue(x, digits = 2)
-                   }) %&gt;%
+    exponentiate = TRUE,
+    label = vars(age) ~ "Age, yrs",
+    pvalue_fun = function(x) {
+      style_pvalue(x, digits = 2)
+    }
+  ) %&gt;%
   bold_labels() %&gt;%
   italicize_levels() %&gt;%
   add_global_p() %&gt;%
@@ -790,11 +795,13 @@ background-size: contain
 
 ---
 
-# tbl_uvregression()
-.pull-left[
+# tbl_uvregression() Univariate Summaries
 .large[
 **Basic tbl_uvregression() code**
 ]
+
+.pull-left[
+
 
 
 ```r
@@ -810,9 +817,9 @@ tbl_uvreg &lt;-
 
 
 .medium[
-- Specify which method to use, any method arguments, and the response variable
+- Specify which model method to use, any necessary method arguments, and the response variable
 
-- Arguments and helper functions like `exponentiate`, `bold_*`, `add_global_p()` are also available for `tbl_uvregression()`
+- Arguments and helper functions like `exponentiate`, `bold_*()`, `add_global_p()` are also available for `tbl_uvregression()`
 
 ]
 ]
@@ -824,7 +831,11 @@ tbl_uvreg &lt;-
 - OR was recognized due to exponentiate arg
 
 
+---
 
+# inline_text()
+
+-TBD
 
 
 ---
@@ -843,9 +854,9 @@ class: inverse, center, middle
 
 - Themes can control default function behaviors (e.g. Always present mean instead of median for continuous variables in `tbl_summary()`)
 
-- Themes can also control more fine-grained customization not available via arguments or helper functions (e.g. Set packagewide language preference)
+- Themes can also control more fine-grained customization not available via arguments or helper functions (e.g. set packagewide language preference)
 
-- Easily create your own personalized theme, or use one of the built-in themes!
+- Easily set one of the available package themes, or create your own personalized theme!
 
 ]
 
@@ -882,6 +893,49 @@ class: inverse, center, middle
 
 - Any of these can be layered, for example you can use compact and language together. and you only have to set once a session. 
 
+---
+# {gtsummary} + Themes
+
+.large[**Create Your Own Theme**]
+
+.pull-left[
+.medium[
+
+- A theme is just a named list of customization elements (glossary of available theme element options in docs)
+- A few examples of what you can customize with themes:
+    - Always style p-values, to X number of digits
+    - Set default statistical tests to use (e.g. always use `fisher.test` for categorical)
+    - Specify large number separator (e.g. 1.000 vs. 1,000)
+    - Always sort categorical variables by frequency
+    - And MANY MORE!
+
+]
+]
+
+.pull-right[
+.large[
+
+
+```r
+karissa_theme &lt;-   
+  list(
+    # round large p-values to two places
+    "pkgwide-fn:pvalue_fun" = function(x) style_pvalue(x, digits = 2),
+    "add_p.tbl_summary-attr:test.categorical" = "fisher.test", 
+    # report median (IQR) and n (percent) as default stats in `tbl_summary()`
+    "style_number-arg:big.mark" = ".",
+    "tbl_summary-arg:sort" = all_categorical() ~ "frequency"
+  )
+
+set_gtsummary_theme("karissa_theme")
+```
+
+
+]
+]
+
+
+
 
 
 
@@ -889,7 +943,33 @@ class: inverse, center, middle
 
 class: inverse, center, middle
 
-# Printing
+# Printing {gtsummary} Tables 
+
+---
+# {gtsummary} + R Markdown
+
+.left-column[ 
+.large[
+{gtsummary} tables are compatible with most R Markdown outputs and tables can be printed using a number of print methods. 
+]
+]
+.right-column[ 
+&lt;p align="center"&gt;&lt;img src="images/print-eng-table.png" width=80%&gt;&lt;/p&gt;
+]
+
+---
+# {gtsummary} + R Markdown
+
+.large[
+- {gtsummary} has sensible print engine defaults to help chose the print engine most suited your output format. 
+
+- These defaults can be easily overridden using any of the conversion functions like `as_gt()`, `as_flex_table()`, etc.
+
+]
+
+
+
+&lt;p align="center"&gt;&lt;img src="images/print_engine_defaults.png" width=35%&gt;&lt;/p&gt;
 
 ---
 

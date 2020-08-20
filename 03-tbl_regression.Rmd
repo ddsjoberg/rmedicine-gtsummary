@@ -6,29 +6,34 @@ class: inverse, center, middle
 ---
 # summarize models with tbl_regression()
 
-.large[**Example: Summarizing regression models**]
-
-.pull-left[
 .large[
-
 **Goal**: Summarize a logistic regression model predicting tumor response
-  
-**Basic tbl_regression() code**
 ]
+.pull-left[
+
 
 ```{r, results = FALSE}
 library(gtsummary)
 library(tidyverse)
 
-m1 = glm(response ~ age + stage + grade,
+m1 = glm(response ~ age + stage,
          data = trial,
          family = binomial(link = "logit"))
-tbl_logreg <- tbl_regression(m1, exponentiate = TRUE)
 
 ```
+
+.large[
+- Display Odds Ratio estimates and CI's for all covariates
+- Display p-values for covariates
+- Show reference levels for categorical variables
+]
+
 ]
 
 ```{r, include=FALSE}
+tbl_logreg <- 
+  tbl_regression(m1, exponentiate = TRUE)
+
 my_gtsave("tbl_logreg")
 ```
 
@@ -39,10 +44,12 @@ my_gtsave("tbl_logreg")
 
 ---
 # summarize models with tbl_regression()
-.pull-left[
+
 .large[
 **Basic tbl_regression() code**
 ]
+
+.pull-left[
 
 ```{r, results = FALSE}
 m1 = glm(response ~ age + stage,
@@ -77,19 +84,20 @@ my_gtsave("tbl_logreg")
 
 ---
 # summarize models with tbl_regression()
-.pull-left[
 .large[
 **Customize Regression Tables**
 ]
+.pull-left[
 
 ```{r, results = FALSE, message=FALSE, warning=FALSE}
-tbl_logreg2 <- 
+tbl_logreg2 <-
   tbl_regression(m1,
-                 exponentiate = TRUE, 
-                 label = vars(age) ~ "Age, yrs", 
-                 pvalue_fun = function(x) {
-                   style_pvalue(x, digits = 2)
-                   }) %>%
+    exponentiate = TRUE,
+    label = vars(age) ~ "Age, yrs",
+    pvalue_fun = function(x) {
+      style_pvalue(x, digits = 2)
+    }
+  ) %>%
   bold_labels() %>%
   italicize_levels() %>%
   add_global_p() %>%
@@ -123,11 +131,13 @@ background-size: contain
 
 ---
 
-# tbl_uvregression()
-.pull-left[
+# tbl_uvregression() Univariate Summaries
 .large[
 **Basic tbl_uvregression() code**
 ]
+
+.pull-left[
+
 
 ```{r, results = FALSE}
 tbl_uvreg <- 
@@ -144,9 +154,9 @@ my_gtsave("tbl_uvreg")
 ```
 
 .medium[
-- Specify which method to use, any method arguments, and the response variable
+- Specify which model method to use, any necessary method arguments, and the response variable
 
-- Arguments and helper functions like `exponentiate`, `bold_*`, `add_global_p()` are also available for `tbl_uvregression()`
+- Arguments and helper functions like `exponentiate`, `bold_*()`, `add_global_p()` are also available for `tbl_uvregression()`
 
 ]
 ]
@@ -158,5 +168,9 @@ my_gtsave("tbl_uvreg")
 - OR was recognized due to exponentiate arg
 
 
+---
 
+# inline_text()
+
+-TBD
 
