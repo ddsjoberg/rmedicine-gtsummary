@@ -37,8 +37,8 @@ my_gtsave <- function(x) {
   path <- file.path("images", paste0(x, ".png"))
   x <- eval(parse(text=x)) 
   if (inherits(x, "gtsummary")) x <- as_gt(x)
-  gt::gtsave(x, path)     
-}  
+  gt::gtsave(x, path)      
+}     
 ```
 
 class: inverse, center, title-slide, middle
@@ -48,7 +48,7 @@ class: inverse, center, title-slide, middle
 ### Daniel D. Sjoberg, Karissa Whiting
 
 ### August 28, 2020
-### R/Medicine 
+### R/Medicine  
 
 <p align="center"><img src="images/msk-white-logo.png" width=25%></p>
    
@@ -57,7 +57,7 @@ class: inverse, center, title-slide, middle
 ---
 ```{r child='01-background.Rmd'}
 ```
-      
+
 ---
 ```{r child='02-tbl_summary.Rmd'}
 ```

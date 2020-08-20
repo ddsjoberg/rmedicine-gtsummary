@@ -34,18 +34,7 @@
 
 ---
 # gtsummary: (a part of) the solution
-
-.pull-left[.large[
-- There are many tools available to increase reproducibility
-
-- The gtsummary package makes it _incredibly_ easy to create the most common tables reported in the medical literature
-
-]]
-
-.pull-right[
-<p align="center"><img src="images/gtsummary-HexSticker.png" width=90%></p>
-]
-
+<p align="center"><img src="images/gtsummary-HexSticker.png" width=50%></p>
 
 
 ???
