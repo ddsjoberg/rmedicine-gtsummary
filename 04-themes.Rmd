@@ -8,15 +8,17 @@ class: inverse, center, middle
 .large[**Theme Basics**]
 
 .large[
-- A theme is a defined set of customization preferences that can be easily set and reused. 
+- A **theme** is a defined set of customization preferences that can be easily set and reused. 
 
-- Themes can control default function behaviors (e.g. Always present mean instead of median for continuous variables in `tbl_summary()`)
+- Themes control **default settings for existing functions** (e.g. always present mean instead of median in `tbl_summary()`)
 
-- Themes can also control more fine-grained customization not available via arguments or helper functions (e.g. set packagewide language preference)
+- Themes can also control more **fine-grained customization** not available via arguments or helper functions (set default
 
-- Easily set one of the available package themes, or create your own personalized theme!
+- Easily use one of the **available package themes**, or **create your own**!
 
 ]
+
+???
 
 
 ---
@@ -97,11 +99,11 @@ image_write(image = img_animated,
 .pull-left[
 .large[
 
-- Use `theme_gtsummary_jornal()` to format to specific publication guidelines.
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
 
-- Use `theme_gtsummary_language()` to translate tables
+- `theme_gtsummary_language()` - translates table text
 
-- Use `theme_gtsummary_compact()` to reduce default padding and font size of tables
+- `theme_gtsummary_compact()` - reduces padding and font size
 
 ]
 ]
@@ -125,27 +127,32 @@ image_write(image = img_animated,
 
 .pull-left[
 .medium[
+- A theme is a **named list of customization elements**
 
-- A theme is just a named list of customization elements (glossary of available theme element options in docs)
-- A few examples of what you can customize with themes:
-    - Always style p-values, to X number of digits
-    - Set default statistical tests to use (e.g. always use `fisher.test` for categorical)
-    - Specify large number separator (e.g. 1.000 vs. 1,000)
-    - Always sort categorical variables by frequency
+- Examples of customizable theme elements:
+    - **Style all p-values** to X number of digits
+    
+    - Set **default statistical tests** (e.g. always use `fisher.test` for categorical)
+    
+    - Specify **large number separator** (e.g. 1.000 vs. 1,000)
+    
+    - Always **sort categorical variables** by frequency
+    
     - And MANY MORE!
 
 ]
 ]
 
 .pull-right[
-.large[
 
 ```{r, eval=FALSE}
 karissa_theme <-   
   list(
     # round large p-values to two places
-    "pkgwide-fn:pvalue_fun" = function(x) style_pvalue(x, digits = 2),
-    "add_p.tbl_summary-attr:test.categorical" = "fisher.test", 
+    "pkgwide-fn:pvalue_fun" = 
+      function(x) style_pvalue(x, digits = 2),
+    "add_p.tbl_summary-attr:test.categorical" = 
+      "fisher.test", 
     # report median (IQR) and n (percent) as default stats in `tbl_summary()`
     "style_number-arg:big.mark" = ".",
     "tbl_summary-arg:sort" = all_categorical() ~ "frequency"
@@ -155,7 +162,6 @@ set_gtsummary_theme("karissa_theme")
 ```
 
 
-]
 ]
 
 

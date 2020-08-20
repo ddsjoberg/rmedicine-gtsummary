@@ -342,7 +342,7 @@ class: inverse, center, middle
 ]
 .pull-left[
 
-
+.small[
 
 ```r
 library(gtsummary)
@@ -351,20 +351,55 @@ library(tidyverse)
 m1 = glm(response ~ age + stage,
          data = trial,
          family = binomial(link = "logit"))
+
+summary(m1)
 ```
-
+]
 .large[
-- Display Odds Ratio estimates and CI's for all covariates
-- Display p-values for covariates
-- Show reference levels for categorical variables
+- Display **odds ratio** estimates and **confidence intervals**
+
+- Display covariate **p-values**
+
+- Show **reference levels** for categorical variables
 ]
 
 ]
-
 
 
 .pull-right[
-&lt;p align="center"&gt;&lt;img src="images/tbl_logreg.png" width=80%&gt;&lt;/p&gt;
+
+.small[
+
+```
+## 
+## Call:
+## glm(formula = response ~ age + stage, family = binomial(link = "logit"), 
+##     data = trial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.2302  -0.8911  -0.7720   1.3563   1.9994  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept) -1.48622    0.62023  -2.396   0.0166 *
+## age          0.01939    0.01147   1.691   0.0909 .
+## stageT2     -0.54143    0.44000  -1.231   0.2185  
+## stageT3     -0.05953    0.45042  -0.132   0.8948  
+## stageT4     -0.23109    0.44823  -0.516   0.6062  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 228.58  on 182  degrees of freedom
+## Residual deviance: 223.93  on 178  degrees of freedom
+##   (17 observations deleted due to missingness)
+## AIC: 233.93
+## 
+## Number of Fisher Scoring iterations: 4
+```
+]
 ]
 
 
@@ -372,27 +407,24 @@ m1 = glm(response ~ age + stage,
 # summarize models with tbl_regression()
 
 .large[
-**Basic tbl_regression() code**
+**basic tbl_regression() code**
 ]
 
 .pull-left[
 
 
 ```r
-m1 = glm(response ~ age + stage,
-         data = trial,
-         family = binomial(link = "logit"))
 tbl_logreg &lt;- 
   tbl_regression(m1, exponentiate = TRUE)
 ```
 
 
-.medium[
-- Variable types are automatically detected and reference rows are created for categorical variables.
+.large[
+- **Reference rows** are created for categorical variables
 
-- Variable labels are carried through into the output table (if no labels, variable names are used). 
+- **Variable labels** are displayed 
 
-- The model was recognized as logistic regression with coefficients exponentiated, so the header displayed “OR” for odds ratio.
+- Coefficients are exponentiated and **Odds Ratios** are displayed
 ]
 ]
 .pull-right[
@@ -410,7 +442,7 @@ tbl_logreg &lt;-
 ---
 # summarize models with tbl_regression()
 .large[
-**Customize Regression Tables**
+**customize regression tables**
 ]
 .pull-left[
 
@@ -419,11 +451,8 @@ tbl_logreg &lt;-
 tbl_logreg2 &lt;-
   tbl_regression(m1,
     exponentiate = TRUE,
-    label = vars(age) ~ "Age, yrs",
-    pvalue_fun = function(x) {
-      style_pvalue(x, digits = 2)
-    }
-  ) %&gt;%
+    pvalue_fun =
+      ~style_pvalue(.x, digits = 2)) %&gt;%
   bold_labels() %&gt;%
   italicize_levels() %&gt;%
   add_global_p() %&gt;%
@@ -433,7 +462,7 @@ tbl_logreg2 &lt;-
 
 .medium[
 - `exponentiate` - Exponentiate model coefficients to display ORs
-- `label` - Specify label for age
+- `label` - Specify label for `age`
 - `pvalue_fun` - Round and format p-values
 - `add_global_p()` - Calculate global p-values for categorical variables
 - `bold_p()` - Bold p-values under threshold of .1
@@ -457,12 +486,9 @@ background-size: contain
 
 # tbl_uvregression() Univariate Summaries
 .large[
-**Basic tbl_uvregression() code**
+**basic tbl_uvregression() code**
 ]
-
 .pull-left[
-
-
 
 ```r
 tbl_uvreg &lt;- 
@@ -477,9 +503,9 @@ tbl_uvreg &lt;-
 
 
 .medium[
-- Specify which model method to use, any necessary method arguments, and the response variable
+- Specify  model `method`, `method.args`, and the `response` variable
 
-- Arguments and helper functions like `exponentiate`, `bold_*()`, `add_global_p()` are also available for `tbl_uvregression()`
+- Arguments and helper functions like `exponentiate`, `bold_*()`, `add_global_p()` can also be used with `tbl_uvregression()`
 
 ]
 ]
@@ -493,9 +519,24 @@ tbl_uvreg &lt;-
 
 ---
 
-# inline_text()
+# inline reporting with inline_text()
 
--TBD
+&lt;p align="center"&gt;&lt;img src="images/tbl_logreg.png" width=30%&gt;&lt;/p&gt;
+
+.medium[
+**In Code:** 
+The odds ratio for age is '` r inline_text(tbl_logreg2, variable = age)`'
+
+**In Report:** 
+The odds ratio for age is 1.02 (95% CI 1.00, 1.04; p=0.091)
+]
+
+
+---
+
+# tbl_merge() and tbl_stack()
+
+Possible just a figure/schematic here
 
 
 ---
@@ -510,15 +551,17 @@ class: inverse, center, middle
 .large[**Theme Basics**]
 
 .large[
-- A theme is a defined set of customization preferences that can be easily set and reused. 
+- A **theme** is a defined set of customization preferences that can be easily set and reused. 
 
-- Themes can control default function behaviors (e.g. Always present mean instead of median for continuous variables in `tbl_summary()`)
+- Themes control **default settings for existing functions** (e.g. always present mean instead of median in `tbl_summary()`)
 
-- Themes can also control more fine-grained customization not available via arguments or helper functions (e.g. set packagewide language preference)
+- Themes can also control more **fine-grained customization** not available via arguments or helper functions (set default
 
-- Easily set one of the available package themes, or create your own personalized theme!
+- Easily use one of the **available package themes**, or **create your own**!
 
 ]
+
+???
 
 
 ---
@@ -532,11 +575,11 @@ class: inverse, center, middle
 .pull-left[
 .large[
 
-- Use `theme_gtsummary_jornal()` to format to specific publication guidelines.
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
 
-- Use `theme_gtsummary_language()` to translate tables
+- `theme_gtsummary_language()` - translates table text
 
-- Use `theme_gtsummary_compact()` to reduce default padding and font size of tables
+- `theme_gtsummary_compact()` - reduces padding and font size
 
 ]
 ]
@@ -560,28 +603,33 @@ class: inverse, center, middle
 
 .pull-left[
 .medium[
+- A theme is a **named list of customization elements**
 
-- A theme is just a named list of customization elements (glossary of available theme element options in docs)
-- A few examples of what you can customize with themes:
-    - Always style p-values, to X number of digits
-    - Set default statistical tests to use (e.g. always use `fisher.test` for categorical)
-    - Specify large number separator (e.g. 1.000 vs. 1,000)
-    - Always sort categorical variables by frequency
+- Examples of customizable theme elements:
+    - **Style all p-values** to X number of digits
+    
+    - Set **default statistical tests** (e.g. always use `fisher.test` for categorical)
+    
+    - Specify **large number separator** (e.g. 1.000 vs. 1,000)
+    
+    - Always **sort categorical variables** by frequency
+    
     - And MANY MORE!
 
 ]
 ]
 
 .pull-right[
-.large[
 
 
 ```r
 karissa_theme &lt;-   
   list(
     # round large p-values to two places
-    "pkgwide-fn:pvalue_fun" = function(x) style_pvalue(x, digits = 2),
-    "add_p.tbl_summary-attr:test.categorical" = "fisher.test", 
+    "pkgwide-fn:pvalue_fun" = 
+      function(x) style_pvalue(x, digits = 2),
+    "add_p.tbl_summary-attr:test.categorical" = 
+      "fisher.test", 
     # report median (IQR) and n (percent) as default stats in `tbl_summary()`
     "style_number-arg:big.mark" = ".",
     "tbl_summary-arg:sort" = all_categorical() ~ "frequency"
@@ -591,7 +639,6 @@ set_gtsummary_theme("karissa_theme")
 ```
 
 
-]
 ]
 
 
@@ -607,23 +654,25 @@ class: inverse, center, middle
 
 ---
 # {gtsummary} + R Markdown
-
 .left-column[ 
 .large[
-{gtsummary} tables are compatible with most R Markdown outputs and tables can be printed using a number of print methods. 
+{gtsummary} tables are **compatible with most R Markdown outputs** and tables can be printed using a number of print methods. 
 ]
 ]
 .right-column[ 
-&lt;p align="center"&gt;&lt;img src="images/print-eng-table.png" width=80%&gt;&lt;/p&gt;
+&lt;p align="center"&gt;&lt;img src="images/print-eng-table.png" width=65%&gt;&lt;/p&gt;
 ]
 
 ---
 # {gtsummary} + R Markdown
 
 .large[
-- {gtsummary} has sensible print engine defaults to help chose the print engine most suited your output format. 
+- **Sensible print engine defaults** help chose the print engine most suited your output format. 
 
-- These defaults can be easily overridden using any of the conversion functions like `as_gt()`, `as_flex_table()`, etc.
+- Easily override these defaults with conversion functions
+    - e.g. `as_gt()`, `as_flex_table()`...
+
+- Or specify preferred print engines in a custom theme
 
 ]
 
