@@ -45,7 +45,7 @@ my_gtsave("tbl_logreg")
 ]
 
 ```{r, results = FALSE}
-m1 = glm(response ~ age + stage + grade,
+m1 = glm(response ~ age + stage,
          data = trial,
          family = binomial(link = "logit"))
 tbl_logreg <- 
@@ -117,12 +117,13 @@ my_gtsave("tbl_logreg2")
 
 
 ---
-background-image: url(images/tbl-regression-markup.png)
+background-image: url(images/tbl_regression_markup.png)
 background-position: center
+background-size: contain
 
 ---
 
-# Univariate Regression with tbl_uvregression()
+# tbl_uvregression()
 .pull-left[
 .large[
 **Basic tbl_uvregression() code**
@@ -145,7 +146,7 @@ my_gtsave("tbl_uvreg")
 .medium[
 - Specify which method to use, any method arguments, and the response variable
 
-- Arguments and helper functions like `exponentiate`, `bold_*`, `add_global_p()` are available for `tbl_uvregression()`
+- Arguments and helper functions like `exponentiate`, `bold_*`, `add_global_p()` are also available for `tbl_uvregression()`
 
 ]
 ]
@@ -156,6 +157,6 @@ my_gtsave("tbl_uvreg")
 ???
 - OR was recognized due to exponentiate arg
 
----
+
 
 
