@@ -57,9 +57,8 @@
 # gtsummary: (a part of) the solution
 
 ### Types of summaries:
-
-.xlarge[
 .center[
+.xlarge[
 .pull-left[
 **"Table 1"-type tables**
 
@@ -71,13 +70,17 @@
 
 **Survival data**
 ]
+]
 
 <br>
+.large[
 _**Stack** and/or **merge** any of these tables_
 
 _Report statistics from tables **in-line**_
 
 _**Themes** to control aspects of all tables_
+
+_Choices on **print engine**_
 ]
 ]
 
