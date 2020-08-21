@@ -23,11 +23,11 @@ style_mono_accent(
   header_font_google = google_font("Josefin Sans"),
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Fira Mono")
-)  
+) 
 # xaringanExtra::use_webcam()
 
 # xaringan::inf_mr() 
-options(htmltools.dir.version = FALSE)  
+options(htmltools.dir.version = FALSE) 
 
 # helper function to save gtsummary objects
 my_gtsave <- function(x) {
@@ -36,8 +36,8 @@ my_gtsave <- function(x) {
    
   path <- file.path("images", paste0(x, ".png"))
   x <- eval(parse(text=x)) 
-  if (inherits(x, "gtsummary")) x <- as_gt(x)
-  gt::gtsave(x, path)            
+  if (inherits(x, "gtsummary")) x <- as_gt(x) 
+  gt::gtsave(x, path)   
 }     
 ```
  

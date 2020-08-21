@@ -151,7 +151,7 @@ my_gtsave("tbl_uvreg")
 ]
 ]
 .pull-right[
-<p align="center"><img src="images/tbl_uvreg.png" width=70%></p>
+<p align="center"><img src="images/tbl_uvreg.png" width=85%></p>
 ]
 
 ???
@@ -176,13 +176,11 @@ The odds ratio for age is `r inline_text(tbl_logreg2, variable = age)`
 
 # tbl_merge() and tbl_stack()
 
-```{r, include=FALSE}
-tbl_merge_1 <-
-  tbl_merge(
-    list(tbl_uvreg, tbl_logreg),
-    tab_spanner = c("**Univariable**", "**Multivariable**")
-  )
+```{r}
+tbl_merge_1 <- tbl_merge(list(tbl_uvreg, tbl_logreg),
+                         tab_spanner = c("**Univariable**", "**Multivariable**"))
 ```
 ```{r, include=FALSE}
 my_gtsave("tbl_merge_1")
 ```
+<p align="center"><img src="images/Dan-SummaryTables-6.png" width=68%></p>

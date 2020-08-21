@@ -142,26 +142,10 @@ background-position: center
 background-size: cover
 
 ---
-# {gtsummary} and formulas
-.large[
+# {gtsummary} + formulas
 
-Many arguments use formula syntax (or list of formulas), and provide many  options to easily select variables you want to modify.   
-<br>
-<br>
+<p align="center"><img src="images/Dan-SummaryTables-5.png" width=110%></p>
 
-.center[
-
-**_select variables_ ~ specify what you want to do** 
-]
-
-
-
-- `label = list(age ~ "Patient Age", marker ~ "Marker Level Pre-Tx")`
-- `type = c(age, marker) ~ "continuous"`
-- `digits = list(age ~ 0, marker ~ 2)`
-- `statistic = all_continuous() ~ "{median} [{min}, {max}]"`
-
-]
 
 ???
 - case_when uses similar syntax 

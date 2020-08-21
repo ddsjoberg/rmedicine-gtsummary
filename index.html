@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="author" content="Daniel D. Sjoberg, Karissa Whiting" />
     <meta name="date" content="2020-08-28" />
-    <script src="index_files/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
@@ -105,11 +104,13 @@ _Report statistics from tables **in-line**_
 
 _**Themes** to control aspects of all tables_
 
-_Choices on **R markdown output**_
+_Choices on **print engine**_
 ]
 ]
 
 ???
+
+Includes survey data as well with `tbl_svysummary()`
 
 ---
 
@@ -249,26 +250,10 @@ background-position: center
 background-size: cover
 
 ---
-# {gtsummary} and formulas
-.large[
+# {gtsummary} + formulas
 
-Many arguments use formula syntax (or list of formulas), and provide many  options to easily select variables you want to modify.   
-&lt;br&gt;
-&lt;br&gt;
+&lt;p align="center"&gt;&lt;img src="images/Dan-SummaryTables-5.png" width=110%&gt;&lt;/p&gt;
 
-.center[
-
-**_select variables_ ~ specify what you want to do** 
-]
-
-
-
-- `label = list(age ~ "Patient Age", marker ~ "Marker Level Pre-Tx")`
-- `type = c(age, marker) ~ "continuous"`
-- `digits = list(age ~ 0, marker ~ 2)`
-- `statistic = all_continuous() ~ "{median} [{min}, {max}]"`
-
-]
 
 ???
 - case_when uses similar syntax 
@@ -291,7 +276,6 @@ Many arguments use formula syntax (or list of formulas), and provide many  optio
 ???
 The modify functions and the bold functions work on ALLL gtsummary tables
 
-
 ---
 background-image: url(images/Dan-tbl_summary_big_example.png)
 background-position: center
@@ -300,7 +284,7 @@ background-size: cover
 ---
 # cross table with tbl_cross()
 
-`tbl_cross()` is a wrapper for `tbl_summary()` for **2 x 2** tables
+`tbl_cross()` is a wrapper for `tbl_summary()` for **n x m** tables
 
 .pull-left[
 &lt;br&gt;
@@ -487,7 +471,7 @@ background-size: contain
 ```r
 tbl_uvreg &lt;- 
   trial %&gt;% 
-  select(age, stage, grade, response) %&gt;%
+  select(age, stage, response) %&gt;%
   tbl_uvregression(
     method = glm,
     y = response,
@@ -503,7 +487,7 @@ tbl_uvreg &lt;-
 ]
 ]
 .pull-right[
-&lt;p align="center"&gt;&lt;img src="images/tbl_uvreg.png" width=70%&gt;&lt;/p&gt;
+&lt;p align="center"&gt;&lt;img src="images/tbl_uvreg.png" width=85%&gt;&lt;/p&gt;
 ]
 
 ???
@@ -524,13 +508,17 @@ The odds ratio for age is '` r inline_text(tbl_logreg2, variable = age)`'
 The odds ratio for age is 1.02 (95% CI 1.00, 1.04; p=0.091)
 ]
 
-
 ---
 
 # tbl_merge() and tbl_stack()
 
-Possible just a figure/schematic here
 
+```r
+tbl_merge_1 &lt;- tbl_merge(list(tbl_uvreg, tbl_logreg),
+                         tab_spanner = c("**Univariable**", "**Multivariable**"))
+```
+
+&lt;p align="center"&gt;&lt;img src="images/Dan-SummaryTables-6.png" width=68%&gt;&lt;/p&gt;
 
 ---
 
