@@ -177,6 +177,12 @@ The odds ratio for age is `r inline_text(tbl_logreg2, variable = age)`
 # tbl_merge() and tbl_stack()
 
 ```{r, include=FALSE}
-list(tbl_uvreg, tbl_logreg) %>%
-  tbl_merge(tab_spanner = c("**Univariable**", "**Multivariable**"))
+tbl_merge_1 <-
+  tbl_merge(
+    list(tbl_uvreg, tbl_logreg),
+    tab_spanner = c("**Univariable**", "**Multivariable**")
+  )
+```
+```{r, include=FALSE}
+my_gtsave("tbl_merge_1")
 ```
