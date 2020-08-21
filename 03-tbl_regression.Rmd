@@ -133,7 +133,7 @@ background-size: contain
 ```{r, results = FALSE}
 tbl_uvreg <- 
   trial %>% 
-  select(age, stage, grade, response) %>%
+  select(age, stage, response) %>%
   tbl_uvregression(
     method = glm,
     y = response,
@@ -172,10 +172,11 @@ The odds ratio for age is '` r inline_text(tbl_logreg2, variable = age)`'
 The odds ratio for age is `r inline_text(tbl_logreg2, variable = age)`
 ]
 
-
 ---
 
 # tbl_merge() and tbl_stack()
 
-Possible just a figure/schematic here
-
+```{r, include=FALSE}
+list(tbl_uvreg, tbl_logreg) %>%
+  tbl_merge(tab_spanner = c("**Univariable**", "**Multivariable**"))
+```
