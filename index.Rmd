@@ -18,8 +18,6 @@ library(gtsummary)
    
 style_mono_accent( 
   base_color = mskRvis::msk_palettes$contrast[1],
-  # primary_color = mskRvis::msk_palettes$contrast[1], 
-  # secondary_color = mskRvis::msk_palettes$contrast[2],
   header_font_google = google_font("Josefin Sans"),
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Fira Mono")
@@ -40,7 +38,7 @@ my_gtsave <- function(x) {
   gt::gtsave(x, path)   
 }     
 ```
- 
+
 class: inverse, center, title-slide, middle
 
 # Reproducibility with {gtsummary}
