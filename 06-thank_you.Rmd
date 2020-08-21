@@ -1,3 +1,10 @@
-class: inverse, center, middle
+background-image: url(images/tbl_summary_demo_fast.gif)
+background-position: center
+background-size: contain
+class: center
 
 # Thank You
+
+.footnote[.medium[
+**{gtsummary} authors/contributors: Daniel D. Sjoberg, Margie Hannum, Karissa Whiting, Emily Zabor, Michael Curry, Esther Drill, Jessica Flynn, Joseph Larmarange, Stephanie Lobaugh, Gustavo Zapata Wainberg**
+]]

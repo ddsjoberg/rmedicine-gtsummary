@@ -184,23 +184,15 @@ Many arguments use formula syntax (or list of formulas), and provide many  optio
 ???
 The modify functions and the bold functions work on ALLL gtsummary tables
 
-
 ---
 background-image: url(images/Dan-tbl_summary_big_example.png)
 background-position: center
 background-size: cover
 
 ---
-background-image: url(images/tbl_summary_demo_fast.gif)
-background-position: center
-background-size: contain
-
-# tbl_summary() in action
-
----
 # cross table with tbl_cross()
 
-`tbl_cross()` is a wrapper for `tbl_summary()` for **2 x 2** tables
+`tbl_cross()` is a wrapper for `tbl_summary()` for **n x m** tables
 
 .pull-left[
 <br>

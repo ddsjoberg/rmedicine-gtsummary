@@ -3,9 +3,9 @@
 .pull-left[.large[
 - Quality of medical research is often low
 
-- Quality of code for medical research is low/non-existent
+- **Low quality code** in medical research part of the problem
 
-- Low quality code is more likely to contain errors
+- Low quality code is more likely to **contain errors**
 
 - Reproducibility is often **cumbersome** and **time-consuming**
 ]]
@@ -23,24 +23,28 @@
 
 - I don't need to explain this to the people here though! One of the big themes of this year's conference is reproducibility
 
-- Nature also reported the the reproducibility crisis in 2016
-
 - At European Urology we asked authors to submit their code.
     - one-third of papers with nontrivial statistics indicated they did not use code
-    - no submitted code satisfied the three basic principles of good software
-    
-- Nice output is HARD, and often takes a lot of custom coding and time. In a pinch, it's easier to not follow best practices.
-
 
 ---
 # gtsummary: (a part of) the solution
-<p align="center"><img src="images/gtsummary-HexSticker.png" width=50%></p>
+<p align="center"><img src="images/gtsummary-HexSticker.png" width=45%></p>
 
 
 ???
+
+- Nice output is HARD, and often takes a lot of custom coding and time. In a pinch, it's easier to not follow best practices.
+
+
 - Wanted to create package geared towards medical research that made creating the most common tables as simple as possible
-    - But also very flexible
+
+    - Make it simple
+    
+    - Also very flexible
+    
     - Most packages for R use APA formatting...not helpful for medical journals (also, life, but that is just my opinion!)
+
+- Eliminate the step of tweaking after you export your results
 
 ---
 # gtsummary: (a part of) the solution
@@ -49,7 +53,7 @@
 .center[
 .xlarge[
 .pull-left[
-**"Table 1"-type tables**
+**"Table 1"-types**
 
 **Cross tabulation**
 ]
@@ -75,4 +79,4 @@ _Choices on **print engine**_
 
 ???
 
-Support for the 
+Includes survey data as well with `tbl_svysummary()`

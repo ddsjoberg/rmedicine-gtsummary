@@ -23,10 +23,10 @@ style_mono_accent(
   header_font_google = google_font("Josefin Sans"),
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Fira Mono")
-) 
+)  
 # xaringanExtra::use_webcam()
 
-# xaringan::inf_mr()
+# xaringan::inf_mr() 
 options(htmltools.dir.version = FALSE)  
 
 # helper function to save gtsummary objects
@@ -40,7 +40,7 @@ my_gtsave <- function(x) {
   gt::gtsave(x, path)            
 }     
 ```
-
+ 
 class: inverse, center, title-slide, middle
 
 # Reproducibility with {gtsummary}
@@ -61,7 +61,7 @@ class: inverse, center, title-slide, middle
 ---
 ```{r child='02-tbl_summary.Rmd'}
 ```
-
+   
 ---
 ```{r child='03-tbl_regression.Rmd'}
 ```

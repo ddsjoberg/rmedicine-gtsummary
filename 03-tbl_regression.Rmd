@@ -125,7 +125,7 @@ background-size: contain
 
 ---
 
-# tbl_uvregression() Univariate Summaries
+# tbl_uvregression() univariate models
 .large[
 **basic tbl_uvregression() code**
 ]

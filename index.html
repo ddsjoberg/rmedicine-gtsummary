@@ -14,7 +14,7 @@
 
 
 
-
+ 
 class: inverse, center, title-slide, middle
 
 # Reproducibility with {gtsummary}
@@ -35,9 +35,9 @@ class: inverse, center, title-slide, middle
 .pull-left[.large[
 - Quality of medical research is often low
 
-- Quality of code for medical research is low/non-existent
+- **Low quality code** in medical research part of the problem
 
-- Low quality code is more likely to contain errors
+- Low quality code is more likely to **contain errors**
 
 - Reproducibility is often **cumbersome** and **time-consuming**
 ]]
@@ -55,24 +55,28 @@ class: inverse, center, title-slide, middle
 
 - I don't need to explain this to the people here though! One of the big themes of this year's conference is reproducibility
 
-- Nature also reported the the reproducibility crisis in 2016
-
 - At European Urology we asked authors to submit their code.
     - one-third of papers with nontrivial statistics indicated they did not use code
-    - no submitted code satisfied the three basic principles of good software
-    
-- Nice output is HARD, and often takes a lot of custom coding and time. In a pinch, it's easier to not follow best practices.
-
 
 ---
 # gtsummary: (a part of) the solution
-&lt;p align="center"&gt;&lt;img src="images/gtsummary-HexSticker.png" width=50%&gt;&lt;/p&gt;
+&lt;p align="center"&gt;&lt;img src="images/gtsummary-HexSticker.png" width=45%&gt;&lt;/p&gt;
 
 
 ???
+
+- Nice output is HARD, and often takes a lot of custom coding and time. In a pinch, it's easier to not follow best practices.
+
+
 - Wanted to create package geared towards medical research that made creating the most common tables as simple as possible
-    - But also very flexible
+
+    - Make it simple
+    
+    - Also very flexible
+    
     - Most packages for R use APA formatting...not helpful for medical journals (also, life, but that is just my opinion!)
+
+- Eliminate the step of tweaking after you export your results
 
 ---
 # gtsummary: (a part of) the solution
@@ -81,7 +85,7 @@ class: inverse, center, title-slide, middle
 .center[
 .xlarge[
 .pull-left[
-**"Table 1"-type tables**
+**"Table 1"-types**
 
 **Cross tabulation**
 ]
@@ -101,13 +105,11 @@ _Report statistics from tables **in-line**_
 
 _**Themes** to control aspects of all tables_
 
-_Choices on **print engine**_
+_Choices on **R markdown output**_
 ]
 ]
 
 ???
-
-Support for the 
 
 ---
 
@@ -296,13 +298,6 @@ background-position: center
 background-size: cover
 
 ---
-background-image: url(images/tbl_summary_demo_fast.gif)
-background-position: center
-background-size: contain
-
-# tbl_summary() in action
-
----
 # cross table with tbl_cross()
 
 `tbl_cross()` is a wrapper for `tbl_summary()` for **2 x 2** tables
@@ -327,7 +322,7 @@ tbl_cross_1 &lt;-
 .pull-right[
 &lt;p align="center"&gt;&lt;img src="images/tbl_cross_1.png" width=90%&gt;&lt;/p&gt;
 ]
-
+   
 ---
 
 class: inverse, center, middle
@@ -483,7 +478,7 @@ background-size: contain
 
 ---
 
-# tbl_uvregression() Univariate Summaries
+# tbl_uvregression() univariate models
 .large[
 **basic tbl_uvregression() code**
 ]
@@ -660,9 +655,16 @@ background-size: cover
 
 ---
 
-class: inverse, center, middle
+background-image: url(images/tbl_summary_demo_fast.gif)
+background-position: center
+background-size: contain
+class: center
 
 # Thank You
+
+.footnote[.medium[
+**{gtsummary} authors/contributors: Daniel D. Sjoberg, Margie Hannum, Karissa Whiting, Emily Zabor, Michael Curry, Esther Drill, Jessica Flynn, Joseph Larmarange, Stephanie Lobaugh, Gustavo Zapata Wainberg**
+]]
 
 ---
 
