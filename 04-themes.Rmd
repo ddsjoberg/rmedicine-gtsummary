@@ -12,7 +12,7 @@ class: inverse, center, middle
 
 - Themes control **default settings for existing functions** (e.g. always present mean instead of median in `tbl_summary()`)
 
-- Themes can also control more **fine-grained customization** not available via arguments or helper functions (set default
+- Themes can also control more **fine-grained customization** not available via arguments or helper functions
 
 - Easily use one of the **available package themes**, or **create your own**!
 

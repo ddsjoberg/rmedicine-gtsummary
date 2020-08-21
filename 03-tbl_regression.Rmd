@@ -105,10 +105,9 @@ my_gtsave("tbl_logreg2")
 
 .medium[
 - `exponentiate` - Exponentiate model coefficients to display ORs
-- `label` - Specify label for `age`
 - `pvalue_fun` - Round and format p-values
 - `add_global_p()` - Calculate global p-values for categorical variables
-- `bold_p()` - Bold p-values under threshold of .1
+- `bold_p()` - Bold p-values at a specific threshold
 ]
 ]
 
@@ -150,7 +149,6 @@ my_gtsave("tbl_uvreg")
 - Specify  model `method`, `method.args`, and the `response` variable
 
 - Arguments and helper functions like `exponentiate`, `bold_*()`, `add_global_p()` can also be used with `tbl_uvregression()`
-
 ]
 ]
 .pull-right[
