@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Daniel D. Sjoberg, Karissa Whiting" />
     <meta name="date" content="2020-08-28" />
+    <script src="index_files/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="my-theme.css" type="text/css" />
   </head>
@@ -331,8 +332,7 @@ tbl_cross_1 &lt;-
 
 class: inverse, center, middle
 
-# Summarizing Regression Models with
-# tbl_regression()
+# summarizing models with tbl_regression()
 
 ---
 # summarize models with tbl_regression()
@@ -462,10 +462,9 @@ tbl_logreg2 &lt;-
 
 .medium[
 - `exponentiate` - Exponentiate model coefficients to display ORs
-- `label` - Specify label for `age`
 - `pvalue_fun` - Round and format p-values
 - `add_global_p()` - Calculate global p-values for categorical variables
-- `bold_p()` - Bold p-values under threshold of .1
+- `bold_p()` - Bold p-values at a specific threshold
 ]
 ]
 
@@ -506,7 +505,6 @@ tbl_uvreg &lt;-
 - Specify  model `method`, `method.args`, and the `response` variable
 
 - Arguments and helper functions like `exponentiate`, `bold_*()`, `add_global_p()` can also be used with `tbl_uvregression()`
-
 ]
 ]
 .pull-right[
@@ -543,7 +541,7 @@ Possible just a figure/schematic here
 
 class: inverse, center, middle
 
-# Advanced Customization with Themes
+# advanced customization with themes
 
 ---
 # {gtsummary} + Themes
@@ -555,7 +553,7 @@ class: inverse, center, middle
 
 - Themes control **default settings for existing functions** (e.g. always present mean instead of median in `tbl_summary()`)
 
-- Themes can also control more **fine-grained customization** not available via arguments or helper functions (set default
+- Themes can also control more **fine-grained customization** not available via arguments or helper functions
 
 - Easily use one of the **available package themes**, or **create your own**!
 
@@ -650,35 +648,15 @@ set_gtsummary_theme("karissa_theme")
 
 class: inverse, center, middle
 
-# Printing {gtsummary} Tables 
-
----
-# {gtsummary} + R Markdown
-.left-column[ 
-.large[
-{gtsummary} tables are **compatible with most R Markdown outputs** and tables can be printed using a number of print methods. 
-]
-]
-.right-column[ 
-&lt;p align="center"&gt;&lt;img src="images/print-eng-table.png" width=65%&gt;&lt;/p&gt;
-]
-
----
 # {gtsummary} + R Markdown
 
-.large[
-- **Sensible print engine defaults** help chose the print engine most suited your output format. 
+---
+background-image: url(images/gtsummary_rmarkdown.png)
+background-position: center
+background-size: cover
 
-- Easily override these defaults with conversion functions
-    - e.g. `as_gt()`, `as_flex_table()`...
+# {gtsummary} + R Markdown
 
-- Or specify preferred print engines in a custom theme
-
-]
-
-
-
-&lt;p align="center"&gt;&lt;img src="images/print_engine_defaults.png" width=35%&gt;&lt;/p&gt;
 
 ---
 

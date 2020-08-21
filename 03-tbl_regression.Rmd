@@ -1,7 +1,6 @@
 class: inverse, center, middle
 
-# Summarizing Regression Models with
-# tbl_regression()
+# summarizing models with tbl_regression()
 
 ---
 # summarize models with tbl_regression()

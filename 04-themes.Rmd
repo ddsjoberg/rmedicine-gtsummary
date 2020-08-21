@@ -1,6 +1,6 @@
 class: inverse, center, middle
 
-# Advanced Customization with Themes
+# advanced customization with themes
 
 ---
 # {gtsummary} + Themes

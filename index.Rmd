@@ -15,7 +15,7 @@ set.seed(78987)
 library(xaringanthemer)
 library(tidyverse)
 library(gtsummary)
- 
+   
 style_mono_accent( 
   base_color = mskRvis::msk_palettes$contrast[1],
   # primary_color = mskRvis::msk_palettes$contrast[1], 
