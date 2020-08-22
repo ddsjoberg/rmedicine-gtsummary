@@ -154,7 +154,7 @@ background-size: cover
 ---
 # tbl_summary() + helper functions
 
-.large[
+.xxlarge[
 `tbl_summary()` objects can also be updated using related functions.
 
 - `add_*()` add additional column of statistics or information, e.g. p-values, q-values, overall statistics, N obs., and more

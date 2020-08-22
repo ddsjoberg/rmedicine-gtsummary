@@ -22,7 +22,7 @@ style_mono_accent(
   text_font_google   = google_font("Montserrat", "300", "300i"),
   code_font_google   = google_font("Fira Mono")
 ) 
-# xaringanExtra::use_webcam()
+xaringanExtra::use_webcam()
 
 # xaringan::inf_mr() 
 options(htmltools.dir.version = FALSE) 
