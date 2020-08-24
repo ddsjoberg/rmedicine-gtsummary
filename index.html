@@ -339,7 +339,7 @@ summary(m1)
 .large[
 - Display **odds ratio** estimates and **confidence intervals**
 
-- Display covariate **p-values**
+- Display **p-values** for covariates
 
 - Show **reference levels** for categorical variables
 ]
@@ -348,50 +348,17 @@ summary(m1)
 
 
 .pull-right[
-
-.small[
-
-```
-## 
-## Call:
-## glm(formula = response ~ age + stage, family = binomial(link = "logit"), 
-##     data = trial)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.2302  -0.8911  -0.7720   1.3563   1.9994  
-## 
-## Coefficients:
-##             Estimate Std. Error z value Pr(&gt;|z|)  
-## (Intercept) -1.48622    0.62023  -2.396   0.0166 *
-## age          0.01939    0.01147   1.691   0.0909 .
-## stageT2     -0.54143    0.44000  -1.231   0.2185  
-## stageT3     -0.05953    0.45042  -0.132   0.8948  
-## stageT4     -0.23109    0.44823  -0.516   0.6062  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 228.58  on 182  degrees of freedom
-## Residual deviance: 223.93  on 178  degrees of freedom
-##   (17 observations deleted due to missingness)
-## AIC: 233.93
-## 
-## Number of Fisher Scoring iterations: 4
-```
+&lt;p align="center"&gt;&lt;img src="images/messy-model-output.png" width=100%&gt;&lt;/p&gt;
 ]
-]
+
 
 
 ---
 # summarize models with tbl_regression()
-
+.pull-left[
 .large[
 **basic tbl_regression() code**
 ]
-
-.pull-left[
 
 
 ```r
@@ -409,7 +376,7 @@ tbl_logreg &lt;-
 ]
 ]
 .pull-right[
-&lt;p align="center"&gt;&lt;img src="images/tbl_logreg.png" width=70%&gt;&lt;/p&gt;
+&lt;p align="center"&gt;&lt;img src="images/tbl_logreg.png" width=90%&gt;&lt;/p&gt;
 ]
 
 ???
@@ -422,10 +389,10 @@ tbl_logreg &lt;-
 
 ---
 # summarize models with tbl_regression()
+.pull-left[
 .large[
 **customize regression tables**
 ]
-.pull-left[
 
 
 ```r
@@ -450,7 +417,7 @@ tbl_logreg2 &lt;-
 ]
 
 .pull-right[
-&lt;p align="center"&gt;&lt;img src="images/tbl_logreg2.png" width=80%&gt;&lt;/p&gt;
+&lt;p align="center"&gt;&lt;img src="images/tbl_logreg2.png" width=90%&gt;&lt;/p&gt;
 ]
 
 ???
@@ -465,10 +432,10 @@ background-size: contain
 ---
 
 # tbl_uvregression() univariate models
+.pull-left[
 .large[
 **basic tbl_uvregression() code**
 ]
-.pull-left[
 
 ```r
 tbl_uvreg &lt;- 
@@ -489,12 +456,24 @@ tbl_uvreg &lt;-
 ]
 ]
 .pull-right[
-&lt;p align="center"&gt;&lt;img src="images/tbl_uvreg.png" width=85%&gt;&lt;/p&gt;
+&lt;p align="center"&gt;&lt;img src="images/tbl_uvreg.png" width=90%&gt;&lt;/p&gt;
 ]
 
 ???
 - OR was recognized due to exponentiate arg
 
+
+---
+
+# inline reporting with inline_text()
+
+&lt;p align="center"&gt;&lt;img src="images/tbl_logreg.png" width=30%&gt;&lt;/p&gt;
+
+.medium[
+**In Code:** 
+The odds ratio for age is '` r inline_text(tbl_logreg2, variable = age)`'
+
+]
 
 ---
 
@@ -516,11 +495,15 @@ The odds ratio for age is 1.02 (95% CI 1.00, 1.04; p=0.091)
 
 
 ```r
-tbl_merge_1 &lt;- tbl_merge(list(tbl_uvreg, tbl_logreg),
+tbl_merge_1 &lt;- tbl_merge(list(tbl_uvreg, tbl_logreg2),
                          tab_spanner = c("**Univariable**", "**Multivariable**"))
 ```
 
-&lt;p align="center"&gt;&lt;img src="images/Dan-SummaryTables-6.png" width=68%&gt;&lt;/p&gt;
+
+
+&lt;p align="center"&gt;&lt;img src="images/Dan-SummaryTables-6.png" width=67%&gt;&lt;/p&gt;
+
+&lt;br&gt;
 
 ---
 
@@ -538,7 +521,7 @@ class: inverse, center, middle
 
 - Themes control **default settings for existing functions** (e.g. always present mean instead of median in `tbl_summary()`)
 
-- Themes can also control more **fine-grained customization** not available via arguments or helper functions
+- Themes control more **fine-grained customization** not available via arguments or helper functions
 
 - Easily use one of the **available package themes**, or **create your own**!
 
@@ -558,6 +541,59 @@ class: inverse, center, middle
 .pull-left[
 .large[
 
+]
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/no-theme.png" width=100%&gt;&lt;/p&gt;
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+
+]
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/jama-theme.png" width=100%&gt;&lt;/p&gt;
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+- `theme_gtsummary_language()` - translates table text
+
+
+]
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/lang-theme.png" width=100%&gt;&lt;/p&gt;
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
 - `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
 
 - `theme_gtsummary_language()` - translates table text
@@ -567,66 +603,32 @@ class: inverse, center, middle
 ]
 ]
 
-
 .pull-right[
-&lt;p align="center"&gt;&lt;img src="images/themes.gif" width=100%&gt;&lt;/p&gt;
+&lt;p align="center"&gt;&lt;img src="images/compact-theme.png" width=100%&gt;&lt;/p&gt;
 ]
-
-???
-- journal theme- for example, large p-values are rounded to two decimal places, IQR sep with dash rather than comma, percent symbol removed. RIght now we have JAMA and lancet, but will likely expand options in the future
-
-- language theme - Currently 12 different languages available and looking to expand
-
-- Any of these can be layered, for example you can use compact and language together. and you only have to set once a session. 
 
 ---
 # {gtsummary} + Themes
 
-.large[**Create Your Own Theme**]
+.large[**Available Themes**]
 
 .pull-left[
-.medium[
-- A theme is a **named list of customization elements**
+.large[
 
-- Examples of customizable theme elements:
-    - **Style all p-values** to X number of digits
-    
-    - Set **default statistical tests** (e.g. always use `fisher.test` for categorical)
-    
-    - Specify **large number separator** (e.g. 1.000 vs. 1,000)
-    
-    - Always **sort categorical variables** by frequency
-    
-    - And MANY MORE!
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+- `theme_gtsummary_language()` - translates table text
+
+- `theme_gtsummary_compact()` - reduces padding and font size
+
+- `set_gtsummary_theme("my_theme")` - create your own!
 
 ]
 ]
 
 .pull-right[
-
-
-```r
-karissa_theme &lt;-   
-  list(
-    # round large p-values to two places
-    "pkgwide-fn:pvalue_fun" = 
-      function(x) style_pvalue(x, digits = 2),
-    "add_p.tbl_summary-attr:test.categorical" = 
-      "fisher.test", 
-    # report median (IQR) and n (percent) as default stats in `tbl_summary()`
-    "style_number-arg:big.mark" = ".",
-    "tbl_summary-arg:sort" = all_categorical() ~ "frequency"
-  )
-
-set_gtsummary_theme("karissa_theme")
-```
-
-
+&lt;p align="center"&gt;&lt;img src="images/custom-theme.png" width=100%&gt;&lt;/p&gt;
 ]
-
-
-
-
 
 
 ---
@@ -645,16 +647,16 @@ background-size: cover
 
 ---
 
-background-image: url(images/tbl_summary_demo_fast.gif)
-background-position: center
-background-size: contain
-class: center
-
 # Thank You
 
-.footnote[.medium[
-**{gtsummary} authors/contributors: Daniel D. Sjoberg, Margie Hannum, Karissa Whiting, Emily Zabor, Michael Curry, Esther Drill, Jessica Flynn, Joseph Larmarange, Stephanie Lobaugh, Gustavo Zapata Wainberg**
-]]
+.center[![description of the image](images/tbl_summary_demo_fast.gif)]
+
+.medium[
+**{gtsummary} authors &amp; contributors:** 
+Daniel D. Sjoberg (@statistishdan), Margie Hannum (@Margaret_Hannum), Karissa Whiting (@karissawhiting), Emily Zabor, Michael Curry, Esther Drill, Jessica Flynn, Joseph Larmarange, Stephanie Lobaugh, Gustavo Zapata Wainberg
+
+Check out package docs at &lt;a href="http://www.danieldsjoberg.com/gtsummary"&gt;http://www.danieldsjoberg.com/gtsummary&lt;/a&gt;
+]
 
 ---
 
@@ -711,6 +713,11 @@ trial %&gt;%
 background-image: url(images/Dan-tbl_summary_big_example.png)
 background-position: center
 background-size: cover
+
+
+```r
+pagedown::chrome_print("index.html")
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
