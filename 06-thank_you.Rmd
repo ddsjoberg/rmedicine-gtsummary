@@ -1,10 +1,10 @@
-background-image: url(images/tbl_summary_demo_fast.gif)
-background-position: center
-background-size: contain
-class: center
-
 # Thank You
 
-.footnote[.medium[
-**{gtsummary} authors/contributors: Daniel D. Sjoberg, Margie Hannum, Karissa Whiting, Emily Zabor, Michael Curry, Esther Drill, Jessica Flynn, Joseph Larmarange, Stephanie Lobaugh, Gustavo Zapata Wainberg**
-]]
+.center[![description of the image](images/tbl_summary_demo_fast.gif)]
+
+.medium[
+**{gtsummary} authors & contributors:** 
+Daniel D. Sjoberg (@statistishdan), Margie Hannum (@Margaret_Hannum), Karissa Whiting (@karissawhiting), Emily Zabor, Michael Curry, Esther Drill, Jessica Flynn, Joseph Larmarange, Stephanie Lobaugh, Gustavo Zapata Wainberg
+
+Check out package docs at <a href="http://www.danieldsjoberg.com/gtsummary">http://www.danieldsjoberg.com/gtsummary</a>
+]

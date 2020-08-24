@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Reproducibility with {gtsummary}</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Daniel D. Sjoberg, Karissa Whiting" />
+    <meta name="date" content="2020-08-28" />
+    <script src="index_files/xaringanExtra-webcam/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: inverse, center, title-slide, middle
+
+# Reproducibility with {gtsummary}
+
+### Daniel D. Sjoberg, Karissa Whiting
+
+### August 28, 2020
+### R/Medicine  
+
+&lt;p align="center"&gt;&lt;img src="images/msk-white-logo.png" width=25%&gt;&lt;/p&gt;
+   
+#### bit.ly/rmed-gtsummary
+ 
+---
+
+# the problem: (ir)reproducibility
+
+.pull-left[.large[
+- Quality of medical research is often low
+
+- **Low quality code** in medical research part of the problem
+
+- Low quality code is more likely to **contain errors**
+
+- Reproducibility is often **cumbersome** and **time-consuming**
+]]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/reproducibility-graphic-online1.jpeg" width=90%&gt;&lt;/p&gt;
+]
+
+
+???
+
+- reproducibility in medical research is a long-reported problem, and the code is an important part of this
+
+- Doug Altman noted the quality of medical research in 1994 and called in a scandal
+
+- I don't need to explain this to the people here though! One of the big themes of this year's conference is reproducibility
+
+- At European Urology we asked authors to submit their code.
+    - one-third of papers with nontrivial statistics indicated they did not use code
+
+---
+# gtsummary: (a part of) the solution
+&lt;p align="center"&gt;&lt;img src="images/gtsummary-HexSticker.png" width=45%&gt;&lt;/p&gt;
+
+
+???
+
+- Nice output is HARD, and often takes a lot of custom coding and time. In a pinch, it's easier to not follow best practices.
+
+
+- Wanted to create package geared towards medical research that made creating the most common tables as simple as possible
+
+    - Make it simple
+    
+    - Also very flexible
+    
+    - Most packages for R use APA formatting...not helpful for medical journals (also, life, but that is just my opinion!)
+
+- Eliminate the step of tweaking after you export your results
+
+---
+# gtsummary: (a part of) the solution
+
+### Types of summaries:
+.center[
+.xlarge[
+.pull-left[
+**"Table 1"-types**
+
+**Cross tabulation**
+]
+
+.pull-right[
+**Regression models**
+
+**Survival data**
+]
+]
+
+&lt;br&gt;
+.large[
+_**Stack** and/or **merge** any of these tables_
+
+_Report statistics from tables **in-line**_
+
+_**Themes** to control aspects of all tables_
+
+_Choices on **print engine**_
+]
+]
+
+???
+
+Includes survey data as well with `tbl_svysummary()`
+
+---
+
+class: inverse, center, middle
+
+# summarize data with tbl_summary()
+
+---
+# summarize data with tbl_summary()
+
+.large[**Example: Summarizing clinical study data**]
+
+.pull-left[
+.large[
+
+**Goal**: Summarize data by treatment groups:
+- Age
+- Tumor Response
+- Tumor Grade
+]
+
+```r
+library(gtsummary)
+library(tidyverse)
+
+sm_trial &lt;-
+  trial %&gt;%
+  select(trt, age, grade, response)
+```
+
+
+
+]
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/gt_trial_info.png" width=90%&gt;&lt;/p&gt;
+]
+
+???
+- This is an abbreviated version of the example data used in the package help files/documentation. 
+
+- note that the column have been labeled using the {labelled} package, and those are used throughout the package
+
+---
+# summarize data with tbl_summary()
+.pull-left[
+.large[
+**basic tbl_summary()**
+]
+
+
+```r
+tbl_summary_1 &lt;- 
+  sm_trial %&gt;%
+  tbl_summary(by = trt)
+```
+
+.medium[
+- Three types of summaries: `continuous`, `categorical`, and `dichotomous`
+
+- Default statistics are `median (IQR)` for continuous variables, and `n (%)` for categorical/dichotomous data
+
+- Variables coded as `0/1`, `TRUE/FALSE`, and `Yes/No` are presented dichotomously by default
+]
+]
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/tbl_summary_1.png" width=85%&gt;&lt;/p&gt;
+]
+
+???
+- Go slow here
+
+- summarizing a data set is the MOST important analysis
+
+- summarize data first!  you will often catch mistakes.  Data is complicated, and understanding it up front is important.
+
+- Communicating a summary of the data ALONG with analytic results in necessary (others may catch mistakes you're not aware of)
+
+- {gtsummary} is for presenting results, other great packages are available for summarizing data for your self (e.g. skimr)
+
+- just one line of code
+
+- all functions beginning with `tbl_*` create a new tables
+
+- this is how I used the package 95% percent of the time...so easy
+
+- three types of data shown here (explain them)
+
+---
+# summarize data with tbl_summary()
+
+.pull-left[
+.large[
+**customize with arguments**
+]
+
+
+```r
+tbl_summary_2 &lt;- 
+  sm_trial %&gt;%
+  tbl_summary(
+    by = trt,
+    statistic = list(
+      all_continuous() ~ "{mean} ({sd})",
+      all_categorical() ~ "{n} / {N} ({p}%)"), 
+    label = age ~ "Patient Age",
+    digits = age ~ 2,
+    missing_text = "N Unknown")
+```
+
+
+.medium[
+- `statistic` Report mean and standard deviation for continuous variables
+- `label` Specify label for age
+- `digits` Specify number of decimals to round to
+- `missing_text` Text to appear for N missing
+]
+]
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/tbl_summary_2.png" width=95%&gt;&lt;/p&gt;
+]
+
+???
+
+- defaults are great, let's change the default behavior
+
+- statistics can be changed to anything...literally any R function (e.g. variance)
+
+- discuss the formula notation
+    - it's like `case_when()`, condition/variable on LHS and result on RHS
+    - one formula doesn't need to be in a list, but more than one must be listed
+
+- the vignette has examples with more examples
+
+---
+background-image: url(images/Dan-tbl_summary_small_example.png)
+background-position: center
+background-size: cover
+
+---
+# {gtsummary} + formulas
+
+&lt;p align="center"&gt;&lt;img src="images/Dan-SummaryTables-5.png" width=110%&gt;&lt;/p&gt;
+
+
+???
+- case_when uses similar syntax 
+
+
+---
+# tbl_summary() + helper functions
+
+.xxlarge[
+`tbl_summary()` objects can also be updated using related functions.
+
+- `add_*()` add additional column of statistics or information, e.g. p-values, q-values, overall statistics, N obs., and more
+
+- `modify_*()` modify table headers, spanning headers, and footnotes
+
+- `bold_*()/italicize_*()` style labels, variable levels, significant p-values
+
+]
+
+???
+The modify functions and the bold functions work on ALLL gtsummary tables
+
+---
+background-image: url(images/Dan-tbl_summary_big_example.png)
+background-position: center
+background-size: cover
+
+---
+# cross table with tbl_cross()
+
+`tbl_cross()` is a wrapper for `tbl_summary()` for **n x m** tables
+
+.pull-left[
+&lt;br&gt;
+
+```r
+tbl_cross_1 &lt;-
+  sm_trial %&gt;%
+  tbl_cross(
+    row = trt, 
+    col = grade,
+    percent = "row",
+    margin = "row"
+  ) %&gt;%
+  add_p(source_note = TRUE)
+```
+
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/tbl_cross_1.png" width=90%&gt;&lt;/p&gt;
+]
+   
+---
+
+class: inverse, center, middle
+
+# summarizing models with tbl_regression()
+
+---
+# summarize models with tbl_regression()
+
+.large[
+**Goal**: Summarize a logistic regression model predicting tumor response
+]
+.pull-left[
+
+.small[
+
+```r
+library(gtsummary)
+library(tidyverse)
+
+m1 = glm(response ~ age + stage,
+         data = trial,
+         family = binomial(link = "logit"))
+
+summary(m1)
+```
+]
+.large[
+- Display **odds ratio** estimates and **confidence intervals**
+
+- Display **p-values** for covariates
+
+- Show **reference levels** for categorical variables
+]
+
+]
+
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/messy-model-output.png" width=100%&gt;&lt;/p&gt;
+]
+
+
+
+---
+# summarize models with tbl_regression()
+.pull-left[
+.large[
+**basic tbl_regression() code**
+]
+
+
+```r
+tbl_logreg &lt;- 
+  tbl_regression(m1, exponentiate = TRUE)
+```
+
+
+.large[
+- **Reference rows** are created for categorical variables
+
+- **Variable labels** are displayed 
+
+- Coefficients are exponentiated and **Odds Ratios** are displayed
+]
+]
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/tbl_logreg.png" width=90%&gt;&lt;/p&gt;
+]
+
+???
+- Model estimates and confidence intervals are rounded and nicely formatted.
+
+- P-values above 0.9 are presented as “&gt;0.9” and below 0.001 are presented as “&lt;0.001”. Non-significant p-values are only rounded to one decimal, while those close to or below the significance threshold (default 0.05) have additional decimal places by default.
+
+- Variable levels are indented and footnotes are added if printed using {gt}. (can alternatively be printed using knitr::kable(); see options here)
+
+
+---
+# summarize models with tbl_regression()
+.pull-left[
+.large[
+**customize regression tables**
+]
+
+
+```r
+tbl_logreg2 &lt;-
+  tbl_regression(m1,
+    exponentiate = TRUE,
+    pvalue_fun =
+      ~style_pvalue(.x, digits = 2)) %&gt;%
+  bold_labels() %&gt;%
+  italicize_levels() %&gt;%
+  add_global_p() %&gt;%
+  bold_p(t = .1)
+```
+
+
+.medium[
+- `exponentiate` - Exponentiate model coefficients to display ORs
+- `pvalue_fun` - Round and format p-values
+- `add_global_p()` - Calculate global p-values for categorical variables
+- `bold_p()` - Bold p-values at a specific threshold
+]
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/tbl_logreg2.png" width=90%&gt;&lt;/p&gt;
+]
+
+???
+- use arguments and helper functions to customize
+
+
+---
+background-image: url(images/tbl_regression_markup.png)
+background-position: center
+background-size: contain
+
+---
+
+# tbl_uvregression() univariate models
+.pull-left[
+.large[
+**basic tbl_uvregression() code**
+]
+
+```r
+tbl_uvreg &lt;- 
+  trial %&gt;% 
+  select(age, stage, response) %&gt;%
+  tbl_uvregression(
+    method = glm,
+    y = response,
+    method.args = list(family = binomial),
+    exponentiate = TRUE)
+```
+
+
+.medium[
+- Specify  model `method`, `method.args`, and the `response` variable
+
+- Arguments and helper functions like `exponentiate`, `bold_*()`, `add_global_p()` can also be used with `tbl_uvregression()`
+]
+]
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/tbl_uvreg.png" width=90%&gt;&lt;/p&gt;
+]
+
+???
+- OR was recognized due to exponentiate arg
+
+
+---
+
+# inline reporting with inline_text()
+
+&lt;p align="center"&gt;&lt;img src="images/tbl_logreg.png" width=30%&gt;&lt;/p&gt;
+
+.medium[
+**In Code:** 
+The odds ratio for age is '` r inline_text(tbl_logreg2, variable = age)`'
+
+]
+
+---
+
+# inline reporting with inline_text()
+
+&lt;p align="center"&gt;&lt;img src="images/tbl_logreg.png" width=30%&gt;&lt;/p&gt;
+
+.medium[
+**In Code:** 
+The odds ratio for age is '` r inline_text(tbl_logreg2, variable = age)`'
+
+**In Report:** 
+The odds ratio for age is 1.02 (95% CI 1.00, 1.04; p=0.091)
+]
+
+---
+
+# tbl_merge() and tbl_stack()
+
+
+```r
+tbl_merge_1 &lt;- tbl_merge(list(tbl_uvreg, tbl_logreg2),
+                         tab_spanner = c("**Univariable**", "**Multivariable**"))
+```
+
+
+
+&lt;p align="center"&gt;&lt;img src="images/Dan-SummaryTables-6.png" width=67%&gt;&lt;/p&gt;
+
+&lt;br&gt;
+
+---
+
+class: inverse, center, middle
+
+# advanced customization with themes
+
+---
+# {gtsummary} + Themes
+
+.large[**Theme Basics**]
+
+.large[
+- A **theme** is a defined set of customization preferences that can be easily set and reused. 
+
+- Themes control **default settings for existing functions** (e.g. always present mean instead of median in `tbl_summary()`)
+
+- Themes control more **fine-grained customization** not available via arguments or helper functions
+
+- Easily use one of the **available package themes**, or **create your own**!
+
+]
+
+???
+
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+
+
+
+.pull-left[
+.large[
+
+]
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/no-theme.png" width=100%&gt;&lt;/p&gt;
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+
+]
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/jama-theme.png" width=100%&gt;&lt;/p&gt;
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+- `theme_gtsummary_language()` - translates table text
+
+
+]
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/lang-theme.png" width=100%&gt;&lt;/p&gt;
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+- `theme_gtsummary_language()` - translates table text
+
+- `theme_gtsummary_compact()` - reduces padding and font size
+
+]
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/compact-theme.png" width=100%&gt;&lt;/p&gt;
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+- `theme_gtsummary_language()` - translates table text
+
+- `theme_gtsummary_compact()` - reduces padding and font size
+
+- `set_gtsummary_theme("my_theme")` - create your own!
+
+]
+]
+
+.pull-right[
+&lt;p align="center"&gt;&lt;img src="images/custom-theme.png" width=100%&gt;&lt;/p&gt;
+]
+
+
+---
+
+class: inverse, center, middle
+
+# {gtsummary} + R Markdown
+
+---
+background-image: url(images/gtsummary_rmarkdown.png)
+background-position: center
+background-size: cover
+
+# {gtsummary} + R Markdown
+
+
+---
+
+# Thank You
+
+.center[![description of the image](images/tbl_summary_demo_fast.gif)]
+
+.medium[
+**{gtsummary} authors &amp; contributors:** 
+Daniel D. Sjoberg (@statistishdan), Margie Hannum (@Margaret_Hannum), Karissa Whiting (@karissawhiting), Emily Zabor, Michael Curry, Esther Drill, Jessica Flynn, Joseph Larmarange, Stephanie Lobaugh, Gustavo Zapata Wainberg
+
+Check out package docs at &lt;a href="http://www.danieldsjoberg.com/gtsummary"&gt;http://www.danieldsjoberg.com/gtsummary&lt;/a&gt;
+]
+
+---
+
+# code example 1
+
+
+```r
+trial %&gt;%
+  select(age, grade, trt) %&gt;%
+  tbl_summary(
+    # stratify table by treatment
+    by = trt,
+    # show mean and SD for age, and add denom for grade
+    statistic = list(age ~ "{mean} ({sd})",
+                     grade ~ "{n} / {N} ({p}%)"),
+    # update label for grade
+    label = grade ~ "Tumor Grade",
+    # updated text for missing values
+    missing_text = "N Unknown"
+  )
+```
+
+---
+background-image: url(images/Dan-tbl_summary_small_example.png)
+background-position: center
+background-size: cover
+
+---
+# example code 2
+
+
+```r
+# summarize variables by treatment received
+trial %&gt;%
+  select(age, grade, trt) %&gt;%
+  tbl_summary(by = trt) %&gt;%
+  # add a column with statistics not stratified by treatment
+  add_overall() %&gt;%
+  # compare values across treatments
+  add_p() %&gt;%
+  # add a column with number of non-missing observations
+  add_n() %&gt;%
+  # bold the variable labels
+  bold_labels() %&gt;%
+  # add a header over the treatment columns
+  modify_spanning_header(c(stat_1, stat_2) ~ "**Treatment Received**") %&gt;%
+  # update the column header
+  modify_header(label ~ "**Variable**") %&gt;%
+  # udpate the default footnote for the statistics presented
+  modify_footnote(starts_with("stat_") ~ "Median (IQR) or Frequency (%)")
+```
+
+---
+background-image: url(images/Dan-tbl_summary_big_example.png)
+background-position: center
+background-size: cover
+
+
+```r
+pagedown::chrome_print("index.html")
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
