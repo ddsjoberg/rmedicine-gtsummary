@@ -25,7 +25,7 @@ summary(m1)
 .large[
 - Display **odds ratio** estimates and **confidence intervals**
 
-- Display covariate **p-values**
+- Display **p-values** for covariates
 
 - Show **reference levels** for categorical variables
 ]
@@ -34,30 +34,24 @@ summary(m1)
 
 
 .pull-right[
+<p align="center"><img src="images/messy-model-output.png" width=100%></p>
+]
 
-.small[
-```{r, echo=FALSE}
-summary(m1)
-```
-]
-]
 
 
 ---
 # summarize models with tbl_regression()
-
+.pull-left[
 .large[
 **basic tbl_regression() code**
 ]
-
-.pull-left[
 
 ```{r, results = FALSE}
 tbl_logreg <- 
   tbl_regression(m1, exponentiate = TRUE)
 ```
 ```{r, include=FALSE}
-my_gtsave("tbl_logreg")
+#my_gtsave("tbl_logreg")
 ```
 
 .large[
@@ -69,7 +63,7 @@ my_gtsave("tbl_logreg")
 ]
 ]
 .pull-right[
-<p align="center"><img src="images/tbl_logreg.png" width=70%></p>
+<p align="center"><img src="images/tbl_logreg.png" width=90%></p>
 ]
 
 ???
@@ -82,10 +76,10 @@ my_gtsave("tbl_logreg")
 
 ---
 # summarize models with tbl_regression()
+.pull-left[
 .large[
 **customize regression tables**
 ]
-.pull-left[
 
 ```{r, results = FALSE, message=FALSE, warning=FALSE}
 tbl_logreg2 <-
@@ -99,7 +93,7 @@ tbl_logreg2 <-
   bold_p(t = .1)
 ```
 ```{r, include=FALSE}
-my_gtsave("tbl_logreg2")
+#my_gtsave("tbl_logreg2")
 ```
 
 .medium[
@@ -111,7 +105,7 @@ my_gtsave("tbl_logreg2")
 ]
 
 .pull-right[
-<p align="center"><img src="images/tbl_logreg2.png" width=80%></p>
+<p align="center"><img src="images/tbl_logreg2.png" width=90%></p>
 ]
 
 ???
@@ -126,10 +120,10 @@ background-size: contain
 ---
 
 # tbl_uvregression() univariate models
+.pull-left[
 .large[
 **basic tbl_uvregression() code**
 ]
-.pull-left[
 ```{r, results = FALSE}
 tbl_uvreg <- 
   trial %>% 
@@ -141,7 +135,7 @@ tbl_uvreg <-
     exponentiate = TRUE)
 ```
 ```{r, include=FALSE}
-my_gtsave("tbl_uvreg")
+#my_gtsave("tbl_uvreg")
 ```
 
 .medium[
@@ -151,12 +145,24 @@ my_gtsave("tbl_uvreg")
 ]
 ]
 .pull-right[
-<p align="center"><img src="images/tbl_uvreg.png" width=85%></p>
+<p align="center"><img src="images/tbl_uvreg.png" width=90%></p>
 ]
 
 ???
 - OR was recognized due to exponentiate arg
 
+
+---
+
+# inline reporting with inline_text()
+
+<p align="center"><img src="images/tbl_logreg.png" width=30%></p>
+
+.medium[
+**In Code:** 
+The odds ratio for age is '` r inline_text(tbl_logreg2, variable = age)`'
+
+]
 
 ---
 
@@ -177,10 +183,10 @@ The odds ratio for age is `r inline_text(tbl_logreg2, variable = age)`
 # tbl_merge() and tbl_stack()
 
 ```{r}
-tbl_merge_1 <- tbl_merge(list(tbl_uvreg, tbl_logreg),
+tbl_merge_1 <- tbl_merge(list(tbl_uvreg, tbl_logreg2),
                          tab_spanner = c("**Univariable**", "**Multivariable**"))
 ```
 ```{r, include=FALSE}
-my_gtsave("tbl_merge_1")
+#my_gtsave("tbl_merge_1")
 ```
 <p align="center"><img src="images/Dan-SummaryTables-6.png" width=68%></p>

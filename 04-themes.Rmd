@@ -12,7 +12,7 @@ class: inverse, center, middle
 
 - Themes control **default settings for existing functions** (e.g. always present mean instead of median in `tbl_summary()`)
 
-- Themes can also control more **fine-grained customization** not available via arguments or helper functions
+- Themes control more **fine-grained customization** not available via arguments or helper functions
 
 - Easily use one of the **available package themes**, or **create your own**!
 
@@ -51,6 +51,8 @@ jama_theme <- trial %>%
   add_p() %>%
   as_gt() %>%
   gt::tab_header("JAMA Theme")
+
+gt::gtsave(jama_theme, here::here("jama_theme.png"))   
 
 my_gtsave("jama_theme")
 
@@ -99,6 +101,59 @@ image_write(image = img_animated,
 .pull-left[
 .large[
 
+]
+]
+
+.pull-right[
+<p align="center"><img src="images/no-theme.png" width=100%></p>
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+
+]
+]
+
+.pull-right[
+<p align="center"><img src="images/jama-theme.png" width=100%></p>
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+- `theme_gtsummary_language()` - translates table text
+
+
+]
+]
+
+.pull-right[
+<p align="center"><img src="images/lang-theme.png" width=100%></p>
+]
+
+---
+# {gtsummary} + Themes
+
+.large[**Available Themes**]
+
+.pull-left[
+.large[
+
 - `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
 
 - `theme_gtsummary_language()` - translates table text
@@ -108,63 +163,30 @@ image_write(image = img_animated,
 ]
 ]
 
-
 .pull-right[
-<p align="center"><img src="images/themes.gif" width=100%></p>
+<p align="center"><img src="images/compact-theme.png" width=100%></p>
 ]
-
-???
-- journal theme- for example, large p-values are rounded to two decimal places, IQR sep with dash rather than comma, percent symbol removed. RIght now we have JAMA and lancet, but will likely expand options in the future
-
-- language theme - Currently 12 different languages available and looking to expand
-
-- Any of these can be layered, for example you can use compact and language together. and you only have to set once a session. 
 
 ---
 # {gtsummary} + Themes
 
-.large[**Create Your Own Theme**]
+.large[**Available Themes**]
 
 .pull-left[
-.medium[
-- A theme is a **named list of customization elements**
+.large[
 
-- Examples of customizable theme elements:
-    - **Style all p-values** to X number of digits
-    
-    - Set **default statistical tests** (e.g. always use `fisher.test` for categorical)
-    
-    - Specify **large number separator** (e.g. 1.000 vs. 1,000)
-    
-    - Always **sort categorical variables** by frequency
-    
-    - And MANY MORE!
+- `theme_gtsummary_jornal()` - formats tables to specific publication guidelines.
+
+- `theme_gtsummary_language()` - translates table text
+
+- `theme_gtsummary_compact()` - reduces padding and font size
+
+- `set_gtsummary_theme("my_theme")` - create your own!
 
 ]
 ]
 
 .pull-right[
-
-```{r, eval=FALSE}
-karissa_theme <-   
-  list(
-    # round large p-values to two places
-    "pkgwide-fn:pvalue_fun" = 
-      function(x) style_pvalue(x, digits = 2),
-    "add_p.tbl_summary-attr:test.categorical" = 
-      "fisher.test", 
-    # report median (IQR) and n (percent) as default stats in `tbl_summary()`
-    "style_number-arg:big.mark" = ".",
-    "tbl_summary-arg:sort" = all_categorical() ~ "frequency"
-  )
-
-set_gtsummary_theme("karissa_theme")
-```
-
-
+<p align="center"><img src="images/custom-theme.png" width=100%></p>
 ]
-
-
-
-
 
